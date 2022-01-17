@@ -27,9 +27,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-74i60hr^5p$x52vk9fhwc_i_-(ung*oeeb49nmwp8j#$6wu&ul'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = ["studentmanagementsystem99.herokuapp.com","127.0.0.1"]
+ALLOWED_HOSTS = ["studentmanagementsystem99.herokuapp.com","127.0.0.1","anzasmsproject99.herokuapp.com"]
 
 MEDIA_URL="/media/"
 MEDIA_ROOT=os.path.join(BASE_DIR,"media")
@@ -150,17 +150,17 @@ AUTHENTICATION_BACKENDS=['student_management_app.EmailBackEnd.EmailBackEnd']
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-EMAIL_BACKEND="django.core.mail.backends.filebased.EmailBackend"
-EMAIL_FILE_PATH=os.path.join(BASE_DIR,"sent_mails")
+# EMAIL_BACKEND="django.core.mail.backends.filebased.EmailBackend"
+# EMAIL_FILE_PATH=os.path.join(BASE_DIR,"sent_mails")
 
 
-# EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-# EMAIL_HOST="smtp.gmail.com"
-# EMAIl_PORT=587
-# EMAIL_HOST_USER="theunstoppablejha@gmail.com"
-# EMAIL_HOST_PASSWORD="iamunstopp@7984"
-# EMAIL_USE_TLS=True
-# DEFAULT_FROM_EMAIL="Student management System <theunstoppablejha@gmail.com>"
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST="smtp.gmail.com"
+EMAIl_PORT=587
+EMAIL_HOST_USER="theunstoppablejha@gmail.com"
+EMAIL_HOST_PASSWORD="iamunstopp@7984"
+EMAIL_USE_TLS=True
+DEFAULT_FROM_EMAIL="Student management System <theunstoppablejha@gmail.com>"
 
 # CHANNEL_LAYERS = {
 #     'default': {
@@ -172,7 +172,7 @@ EMAIL_FILE_PATH=os.path.join(BASE_DIR,"sent_mails")
 # }
 
 #Enable Only Making Project Live on Heroku
-STATICFILES_STORAGE='whitenoise.storage.CompressedManifestStaticFilesStorage'
+STATICFILES_STORAGE='whitenoise.storage.CompressedStaticFilesStorage'
 import dj_database_url 
 prod_db=dj_database_url.config(conn_max_age=500)
 DATABASES['default'].update(prod_db)
