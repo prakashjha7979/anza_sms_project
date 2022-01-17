@@ -29,7 +29,7 @@ SECRET_KEY = 'django-insecure-74i60hr^5p$x52vk9fhwc_i_-(ung*oeeb49nmwp8j#$6wu&ul
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ["anzasmsproject99.herokuapp.com","localhost","127.0.0.1"]
+ALLOWED_HOSTS = ["*"]
 
 MEDIA_URL="/media/"
 MEDIA_ROOT=os.path.join(BASE_DIR,"media")
