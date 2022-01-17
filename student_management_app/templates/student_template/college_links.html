@@ -1,0 +1,98 @@
+{% extends 'student_template/base_template.html' %}
+{% block page_title %}
+College All Links
+{% endblock page_title %}
+{% block main_content %}
+    <!-- Main content -->
+    <section class="content">
+      <div class="container-fluid">
+          <div class="row">
+              <div class="col-md-12">
+            <!-- general form elements -->
+            <div class="card card-primary">
+              <div class="card-header">
+                <h3 class="card-title">All Important And Classes links</h3>
+              </div>
+              <!-- /.card-header -->
+              <!-- form start -->
+              
+
+              <div>
+              </div>
+            </div>
+            <!-- /.card -->
+
+
+
+          </div>
+          </div>
+      </div>
+
+      <div class="container ">
+
+        <br><br>
+        <div class="row">
+          <div class="col-md-9">
+            <h5>All Imprtant Links:</h5>
+  
+            <div class="card card-body">
+              <table class="table table-sm">
+                <tr>
+                  <th>Important Links</th>
+                  <th>Comment</th>
+                  <th>Date</th>
+                  <th>Action</th>
+                </tr>
+                {% for n in links  %}
+                {% if n.types in "IMPORTANT_LINKS" %}
+                <tr>
+                  <td>{{n.name}} </td>
+                  <td>{{n.comments}} </td>
+                  <td>{{n.created_at}} </td>
+                  <td><a href="{{n.urls}}" class="btn btn-success">Open link</a> </td>
+                </tr>
+                {% endif %}
+                {% endfor %}
+              </table>
+            </div>
+          </div>
+        </div>
+  
+        <br><br>
+      </div>
+
+      <div class="container ">
+
+        <br><br>
+        <div class="row">
+          <div class="col-md-9">
+            <h5>All Classes Links:</h5>
+  
+            <div class="card card-body">
+                <table class="table table-sm">
+                    <tr>
+                      <th>Classes Links</th>
+                      <th>Comment</th>
+                      <th>Date</th>
+                      <th>Action</th>
+                    </tr>
+                    {% for n in links %}
+                    {% if n.types in "CLASS_LINKS" %}
+                    <tr>
+                        <td>{{n.name}} </td>
+                        <td>{{n.comments}} </td>
+                        <td>{{n.created_at}} </td>
+                      <td><a href="{{n.urls}}" class="btn btn-success">Open link</a> </td>
+                    </tr>
+                    {% endif %}
+                    {% endfor %}
+                  </table>
+          </div>
+        </div>
+  
+        <br><br>
+      </div>
+    </section>
+    <!-- /.content -->
+{% endblock main_content %}
+

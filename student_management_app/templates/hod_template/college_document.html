@@ -1,0 +1,1908 @@
+{% extends 'hod_template/base_template.html' %}
+{% block page_title %}
+Admin Manage College Documents 
+{% endblock page_title %}
+{% block main_content %}
+<!-- Main content -->
+<section class="content">
+    <div class="container-fluid">
+        <!-- Title & Breadcrumbs-->
+        <div class="row page-titles">
+            <div class="col-md-12 align-self-center">
+                <h4 class="theme-cl">Upload Documents</h4>
+            </div>
+        </div>
+        <div class="form-group">
+            {% if messages %}
+            {% for message in messages %}
+            {% if message.tags == 'error' %}
+            <div class="alert alert-danger" style="margin-top:10px">{{ message }}</div>
+            {% endif %}
+            {% if message.tags == 'success' %}
+            <div class="alert alert-success" style="margin-top:10px">{{ message }}</div>
+            {% endif %}
+            {% endfor %}
+            {% endif %}
+        </div>
+        <div class="card">
+            <div class="card-header">Upload College documents</div>
+            <form role="form" action="{% url 'college_document_save' %}" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="card-body">
+
+                    <div class="form-group">
+                        <label>Admission Letter</label>
+                        <input type="file" class="form-control pd-3px" name="admission_letter">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Comments </label>
+                        <input type="text" class="form-control" name="admission_comment" placeholder="Enter Comments">
+                      </div>
+                    <div class="form-group">
+                        <!-- <button class="btn btn-success"><a download="{{std_documents.hsc_marksheet}}"
+                                href="{{std_documents.hsc_marksheet}}">Download</a></button>
+                        <button><a href="{{std_documents.hsc_marksheet}}">View</a></button> -->
+                        <!-- HTML !-->
+                        <button class="button-62" role="button"><a download="{{clg_documents.admission_letter}}"
+                                href="{{clg_documents.admission_letter}}">Download</a></button>
+                        <style>
+                            /* CSS */
+                            .button-62 {
+                                background: linear-gradient(to bottom right, #EF4765, #FF9A5A);
+                                border: 0;
+                                border-radius: 12px;
+                                color: #FFFFFF;
+                                cursor: pointer;
+                                display: inline-block;
+                                font-family: -apple-system, system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+                                font-size: 16px;
+                                font-weight: 500;
+                                line-height: 2.5;
+                                outline: transparent;
+                                padding: 0 1rem;
+                                text-align: center;
+                                text-decoration: none !important;
+                                transition: box-shadow .2s ease-in-out;
+                                user-select: none;
+                                -webkit-user-select: none;
+                                touch-action: manipulation;
+                                white-space: nowrap;
+                            }
+
+                            .button-62:not([disabled]):focus {
+                                box-shadow: 0 0 .25rem rgba(0, 0, 0, 0.5), -.125rem -.125rem 1rem rgba(239, 71, 101, 0.5),
+                                    .125rem .125rem 1rem rgba(255, 154, 90, 0.5);
+                            }
+
+                            .button-62:not([disabled]):hover {
+                                box-shadow: 0 0 .25rem rgba(0, 0, 0, 0.5), -.125rem -.125rem 1rem rgba(239, 71, 101, 0.5),
+                                    .125rem .125rem 1rem rgba(255, 154, 90, 0.5);
+                            }
+                        </style>
+                        <!-- HTML !-->
+                        <button class="button-33" role="button"><a
+                                href="{{clg_documents.admission_letter}}">View</a></button>
+                        <style>
+                            /* CSS */
+                            .button-33 {
+                                background-color: #c2fbd7;
+                                border-radius: 100px;
+                                box-shadow: rgba(44, 187, 99, .2) 0 -25px 18px -14px inset, rgba(44, 187, 99, .15) 0 1px 2px, rgba(44, 187, 99, .15) 0 2px 4px, rgba(44, 187, 99, .15) 0 4px 8px, rgba(44, 187, 99, .15) 0 8px 16px, rgba(44, 187, 99, .15) 0 16px 32px;
+                                color: green;
+                                cursor: pointer;
+                                display: inline-block;
+                                font-family: CerebriSans-Regular, -apple-system, system-ui, Roboto, sans-serif;
+                                padding: 7px 20px;
+                                text-align: center;
+                                text-decoration: none !important;
+                                transition: all 250ms;
+                                border: 0;
+                                font-size: 16px;
+                                user-select: none;
+                                -webkit-user-select: none;
+                                touch-action: manipulation;
+                            }
+
+                            .button-33:hover {
+                                box-shadow: rgba(44, 187, 99, .35) 0 -25px 18px -14px inset, rgba(44, 187, 99, .25) 0 1px 2px, rgba(44, 187, 99, .25) 0 2px 4px, rgba(44, 187, 99, .25) 0 4px 8px, rgba(44, 187, 99, .25) 0 8px 16px, rgba(44, 187, 99, .25) 0 16px 32px;
+                                transform: scale(1.05) rotate(-1deg);
+                            }
+                        </style>
+                        <button class="button-70" role="button" type="submit">Save</button>
+
+                        <!-- HTML !-->
+                        <style>
+                            /* CSS */
+                            .button-70 {
+                                background-image: linear-gradient(#0dccea, #0d70ea);
+                                border: 0;
+                                border-radius: 4px;
+                                box-shadow: rgba(0, 0, 0, .3) 0 5px 15px;
+                                box-sizing: border-box;
+                                color: #fff;
+                                cursor: pointer;
+                                font-family: Montserrat, sans-serif;
+                                font-size: .9em;
+                                margin: 5px;
+                                padding: 10px 15px;
+                                text-align: center;
+                                user-select: none;
+                                -webkit-user-select: none;
+                                touch-action: manipulation;
+                            }
+                        </style>
+
+                    </div>
+                    
+
+
+                   
+
+                    <div class="form-group">
+                        <label>First Installment Invoice</label>
+                        <input type="file" class="form-control" name="first_installment">
+                    </div>
+
+                    <div class="form-group">
+                        <label> Comment </label>
+                        <input type="text" class="form-control" name="one_comment" placeholder="Enter Comments">
+                      </div>
+                    <div class="form-group">
+                        <!-- HTML !-->
+                        <button class="button-62" role="button"><a download="{{clg_documents.first_installment}}"
+                                href="{{clg_documents.first_installment}}">Download</a></button>
+                        <style>
+                            /* CSS */
+                            .button-62 {
+                                background: linear-gradient(to bottom right, #EF4765, #FF9A5A);
+                                border: 0;
+                                border-radius: 12px;
+                                color: #FFFFFF;
+                                cursor: pointer;
+                                display: inline-block;
+                                font-family: -apple-system, system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+                                font-size: 16px;
+                                font-weight: 500;
+                                line-height: 2.5;
+                                outline: transparent;
+                                padding: 0 1rem;
+                                text-align: center;
+                                text-decoration: none !important;
+                                transition: box-shadow .2s ease-in-out;
+                                user-select: none;
+                                -webkit-user-select: none;
+                                touch-action: manipulation;
+                                white-space: nowrap;
+                            }
+
+                            .button-62:not([disabled]):focus {
+                                box-shadow: 0 0 .25rem rgba(0, 0, 0, 0.5), -.125rem -.125rem 1rem rgba(239, 71, 101, 0.5),
+                                    .125rem .125rem 1rem rgba(255, 154, 90, 0.5);
+                            }
+
+                            .button-62:not([disabled]):hover {
+                                box-shadow: 0 0 .25rem rgba(0, 0, 0, 0.5), -.125rem -.125rem 1rem rgba(239, 71, 101, 0.5),
+                                    .125rem .125rem 1rem rgba(255, 154, 90, 0.5);
+                            }
+                        </style>
+                        <!-- HTML !-->
+                        <button class="button-33" role="button"><a
+                                href="{{clg_documents.first_installment}}">View</a></button>
+                        <style>
+                            /* CSS */
+                            .button-33 {
+                                background-color: #c2fbd7;
+                                border-radius: 100px;
+                                box-shadow: rgba(44, 187, 99, .2) 0 -25px 18px -14px inset, rgba(44, 187, 99, .15) 0 1px 2px, rgba(44, 187, 99, .15) 0 2px 4px, rgba(44, 187, 99, .15) 0 4px 8px, rgba(44, 187, 99, .15) 0 8px 16px, rgba(44, 187, 99, .15) 0 16px 32px;
+                                color: green;
+                                cursor: pointer;
+                                display: inline-block;
+                                font-family: CerebriSans-Regular, -apple-system, system-ui, Roboto, sans-serif;
+                                padding: 7px 20px;
+                                text-align: center;
+                                text-decoration: none !important;
+                                transition: all 250ms;
+                                border: 0;
+                                font-size: 16px;
+                                user-select: none;
+                                -webkit-user-select: none;
+                                touch-action: manipulation;
+                            }
+
+                            .button-33:hover {
+                                box-shadow: rgba(44, 187, 99, .35) 0 -25px 18px -14px inset, rgba(44, 187, 99, .25) 0 1px 2px, rgba(44, 187, 99, .25) 0 2px 4px, rgba(44, 187, 99, .25) 0 4px 8px, rgba(44, 187, 99, .25) 0 8px 16px, rgba(44, 187, 99, .25) 0 16px 32px;
+                                transform: scale(1.05) rotate(-1deg);
+                            }
+                        </style>
+                        <button class="button-70" role="button" type="submit">Save</button>
+
+                        <!-- HTML !-->
+                        <style>
+                            /* CSS */
+                            .button-70 {
+                                background-image: linear-gradient(#0dccea, #0d70ea);
+                                border: 0;
+                                border-radius: 4px;
+                                box-shadow: rgba(0, 0, 0, .3) 0 5px 15px;
+                                box-sizing: border-box;
+                                color: #fff;
+                                cursor: pointer;
+                                font-family: Montserrat, sans-serif;
+                                font-size: .9em;
+                                margin: 5px;
+                                padding: 10px 15px;
+                                text-align: center;
+                                user-select: none;
+                                -webkit-user-select: none;
+                                touch-action: manipulation;
+                            }
+                        </style>
+
+                    </div>
+                    
+
+                    <div class="form-group">
+                        <label>Second Installment Invoice</label>
+                        <input type="file" class="form-control" name="second_installment">
+                    </div>
+
+                    <div class="form-group">
+                        <label> Comment </label>
+                        <input type="text" class="form-control" name="two_comment" placeholder="Enter Comments">
+                      </div>
+                    <div class="form-group">
+                        <!-- HTML !-->
+                        <button class="button-62" role="button"><a download="{{clg_documents.second_installment}}"
+                                href="{{clg_documents.second_installment}}">Download</a></button>
+                        <style>
+                            /* CSS */
+                            .button-62 {
+                                background: linear-gradient(to bottom right, #EF4765, #FF9A5A);
+                                border: 0;
+                                border-radius: 12px;
+                                color: #FFFFFF;
+                                cursor: pointer;
+                                display: inline-block;
+                                font-family: -apple-system, system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+                                font-size: 16px;
+                                font-weight: 500;
+                                line-height: 2.5;
+                                outline: transparent;
+                                padding: 0 1rem;
+                                text-align: center;
+                                text-decoration: none !important;
+                                transition: box-shadow .2s ease-in-out;
+                                user-select: none;
+                                -webkit-user-select: none;
+                                touch-action: manipulation;
+                                white-space: nowrap;
+                            }
+
+                            .button-62:not([disabled]):focus {
+                                box-shadow: 0 0 .25rem rgba(0, 0, 0, 0.5), -.125rem -.125rem 1rem rgba(239, 71, 101, 0.5),
+                                    .125rem .125rem 1rem rgba(255, 154, 90, 0.5);
+                            }
+
+                            .button-62:not([disabled]):hover {
+                                box-shadow: 0 0 .25rem rgba(0, 0, 0, 0.5), -.125rem -.125rem 1rem rgba(239, 71, 101, 0.5),
+                                    .125rem .125rem 1rem rgba(255, 154, 90, 0.5);
+                            }
+                        </style>
+                        <!-- HTML !-->
+                        <button class="button-33" role="button"><a
+                                href="{{clg_documents.second_installment}}">View</a></button>
+                        <style>
+                            /* CSS */
+                            .button-33 {
+                                background-color: #c2fbd7;
+                                border-radius: 100px;
+                                box-shadow: rgba(44, 187, 99, .2) 0 -25px 18px -14px inset, rgba(44, 187, 99, .15) 0 1px 2px, rgba(44, 187, 99, .15) 0 2px 4px, rgba(44, 187, 99, .15) 0 4px 8px, rgba(44, 187, 99, .15) 0 8px 16px, rgba(44, 187, 99, .15) 0 16px 32px;
+                                color: green;
+                                cursor: pointer;
+                                display: inline-block;
+                                font-family: CerebriSans-Regular, -apple-system, system-ui, Roboto, sans-serif;
+                                padding: 7px 20px;
+                                text-align: center;
+                                text-decoration: none !important;
+                                transition: all 250ms;
+                                border: 0;
+                                font-size: 16px;
+                                user-select: none;
+                                -webkit-user-select: none;
+                                touch-action: manipulation;
+                            }
+
+                            .button-33:hover {
+                                box-shadow: rgba(44, 187, 99, .35) 0 -25px 18px -14px inset, rgba(44, 187, 99, .25) 0 1px 2px, rgba(44, 187, 99, .25) 0 2px 4px, rgba(44, 187, 99, .25) 0 4px 8px, rgba(44, 187, 99, .25) 0 8px 16px, rgba(44, 187, 99, .25) 0 16px 32px;
+                                transform: scale(1.05) rotate(-1deg);
+                            }
+                        </style>
+                        <button class="button-70" role="button" type="submit">Save</button>
+
+                        <!-- HTML !-->
+                        <style>
+                            /* CSS */
+                            .button-70 {
+                                background-image: linear-gradient(#0dccea, #0d70ea);
+                                border: 0;
+                                border-radius: 4px;
+                                box-shadow: rgba(0, 0, 0, .3) 0 5px 15px;
+                                box-sizing: border-box;
+                                color: #fff;
+                                cursor: pointer;
+                                font-family: Montserrat, sans-serif;
+                                font-size: .9em;
+                                margin: 5px;
+                                padding: 10px 15px;
+                                text-align: center;
+                                user-select: none;
+                                -webkit-user-select: none;
+                                touch-action: manipulation;
+                            }
+                        </style>
+
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Third Installment Invoice</label>
+                        <input type="file" class="form-control" name="third_installment">
+                    </div>
+                    <div class="form-group">
+                        <label>Comment </label>
+                        <input type="text" class="form-control" name="three_comment" placeholder="Enter Comments">
+                      </div>
+                    <div class="form-group">
+                        <!-- HTML !-->
+                        <button class="button-62" role="button"><a download="{{clg_documents.third_installment}}"
+                                href="{{clg_documents.third_installment}}">Download</a></button>
+                        <style>
+                            /* CSS */
+                            .button-62 {
+                                background: linear-gradient(to bottom right, #EF4765, #FF9A5A);
+                                border: 0;
+                                border-radius: 12px;
+                                color: #FFFFFF;
+                                cursor: pointer;
+                                display: inline-block;
+                                font-family: -apple-system, system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+                                font-size: 16px;
+                                font-weight: 500;
+                                line-height: 2.5;
+                                outline: transparent;
+                                padding: 0 1rem;
+                                text-align: center;
+                                text-decoration: none !important;
+                                transition: box-shadow .2s ease-in-out;
+                                user-select: none;
+                                -webkit-user-select: none;
+                                touch-action: manipulation;
+                                white-space: nowrap;
+                            }
+
+                            .button-62:not([disabled]):focus {
+                                box-shadow: 0 0 .25rem rgba(0, 0, 0, 0.5), -.125rem -.125rem 1rem rgba(239, 71, 101, 0.5),
+                                    .125rem .125rem 1rem rgba(255, 154, 90, 0.5);
+                            }
+
+                            .button-62:not([disabled]):hover {
+                                box-shadow: 0 0 .25rem rgba(0, 0, 0, 0.5), -.125rem -.125rem 1rem rgba(239, 71, 101, 0.5),
+                                    .125rem .125rem 1rem rgba(255, 154, 90, 0.5);
+                            }
+                        </style>
+                        <!-- HTML !-->
+                        <button class="button-33" role="button"><a
+                                href="{{clg_documents.third_installment}}">View</a></button>
+                        <style>
+                            /* CSS */
+                            .button-33 {
+                                background-color: #c2fbd7;
+                                border-radius: 100px;
+                                box-shadow: rgba(44, 187, 99, .2) 0 -25px 18px -14px inset, rgba(44, 187, 99, .15) 0 1px 2px, rgba(44, 187, 99, .15) 0 2px 4px, rgba(44, 187, 99, .15) 0 4px 8px, rgba(44, 187, 99, .15) 0 8px 16px, rgba(44, 187, 99, .15) 0 16px 32px;
+                                color: green;
+                                cursor: pointer;
+                                display: inline-block;
+                                font-family: CerebriSans-Regular, -apple-system, system-ui, Roboto, sans-serif;
+                                padding: 7px 20px;
+                                text-align: center;
+                                text-decoration: none !important;
+                                transition: all 250ms;
+                                border: 0;
+                                font-size: 16px;
+                                user-select: none;
+                                -webkit-user-select: none;
+                                touch-action: manipulation;
+                            }
+
+                            .button-33:hover {
+                                box-shadow: rgba(44, 187, 99, .35) 0 -25px 18px -14px inset, rgba(44, 187, 99, .25) 0 1px 2px, rgba(44, 187, 99, .25) 0 2px 4px, rgba(44, 187, 99, .25) 0 4px 8px, rgba(44, 187, 99, .25) 0 8px 16px, rgba(44, 187, 99, .25) 0 16px 32px;
+                                transform: scale(1.05) rotate(-1deg);
+                            }
+                        </style>
+                        <button class="button-70" role="button" type="submit">Save</button>
+
+                        <!-- HTML !-->
+                        <style>
+                            /* CSS */
+                            .button-70 {
+                                background-image: linear-gradient(#0dccea, #0d70ea);
+                                border: 0;
+                                border-radius: 4px;
+                                box-shadow: rgba(0, 0, 0, .3) 0 5px 15px;
+                                box-sizing: border-box;
+                                color: #fff;
+                                cursor: pointer;
+                                font-family: Montserrat, sans-serif;
+                                font-size: .9em;
+                                margin: 5px;
+                                padding: 10px 15px;
+                                text-align: center;
+                                user-select: none;
+                                -webkit-user-select: none;
+                                touch-action: manipulation;
+                            }
+                        </style>
+
+                    </div>
+                    
+
+                    <div class="form-group">
+                        <label>Fourth Installment Invoice</label>
+                        <input type="file" class="form-control" name="fourth_installment">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Comment </label>
+                        <input type="text" class="form-control" name="four_comment" placeholder="Enter Comments">
+                      </div>
+                    <div class="form-group">
+                        <!-- HTML !-->
+                        <button class="button-62" role="button"><a download="{{clg_documents.fourth_installment}}"
+                                href="{{clg_documents.fourth_installment}}">Download</a></button>
+                        <style>
+                            /* CSS */
+                            .button-62 {
+                                background: linear-gradient(to bottom right, #EF4765, #FF9A5A);
+                                border: 0;
+                                border-radius: 12px;
+                                color: #FFFFFF;
+                                cursor: pointer;
+                                display: inline-block;
+                                font-family: -apple-system, system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+                                font-size: 16px;
+                                font-weight: 500;
+                                line-height: 2.5;
+                                outline: transparent;
+                                padding: 0 1rem;
+                                text-align: center;
+                                text-decoration: none !important;
+                                transition: box-shadow .2s ease-in-out;
+                                user-select: none;
+                                -webkit-user-select: none;
+                                touch-action: manipulation;
+                                white-space: nowrap;
+                            }
+
+                            .button-62:not([disabled]):focus {
+                                box-shadow: 0 0 .25rem rgba(0, 0, 0, 0.5), -.125rem -.125rem 1rem rgba(239, 71, 101, 0.5),
+                                    .125rem .125rem 1rem rgba(255, 154, 90, 0.5);
+                            }
+
+                            .button-62:not([disabled]):hover {
+                                box-shadow: 0 0 .25rem rgba(0, 0, 0, 0.5), -.125rem -.125rem 1rem rgba(239, 71, 101, 0.5),
+                                    .125rem .125rem 1rem rgba(255, 154, 90, 0.5);
+                            }
+                        </style>
+                        <!-- HTML !-->
+                        <button class="button-33" role="button"><a
+                                href="{{clg_documents.fourth_installment}}">View</a></button>
+                        <style>
+                            /* CSS */
+                            .button-33 {
+                                background-color: #c2fbd7;
+                                border-radius: 100px;
+                                box-shadow: rgba(44, 187, 99, .2) 0 -25px 18px -14px inset, rgba(44, 187, 99, .15) 0 1px 2px, rgba(44, 187, 99, .15) 0 2px 4px, rgba(44, 187, 99, .15) 0 4px 8px, rgba(44, 187, 99, .15) 0 8px 16px, rgba(44, 187, 99, .15) 0 16px 32px;
+                                color: green;
+                                cursor: pointer;
+                                display: inline-block;
+                                font-family: CerebriSans-Regular, -apple-system, system-ui, Roboto, sans-serif;
+                                padding: 7px 20px;
+                                text-align: center;
+                                text-decoration: none !important;
+                                transition: all 250ms;
+                                border: 0;
+                                font-size: 16px;
+                                user-select: none;
+                                -webkit-user-select: none;
+                                touch-action: manipulation;
+                            }
+
+                            .button-33:hover {
+                                box-shadow: rgba(44, 187, 99, .35) 0 -25px 18px -14px inset, rgba(44, 187, 99, .25) 0 1px 2px, rgba(44, 187, 99, .25) 0 2px 4px, rgba(44, 187, 99, .25) 0 4px 8px, rgba(44, 187, 99, .25) 0 8px 16px, rgba(44, 187, 99, .25) 0 16px 32px;
+                                transform: scale(1.05) rotate(-1deg);
+                            }
+                        </style>
+                        <button class="button-70" role="button" type="submit">Save</button>
+
+                        <!-- HTML !-->
+                        <style>
+                            /* CSS */
+                            .button-70 {
+                                background-image: linear-gradient(#0dccea, #0d70ea);
+                                border: 0;
+                                border-radius: 4px;
+                                box-shadow: rgba(0, 0, 0, .3) 0 5px 15px;
+                                box-sizing: border-box;
+                                color: #fff;
+                                cursor: pointer;
+                                font-family: Montserrat, sans-serif;
+                                font-size: .9em;
+                                margin: 5px;
+                                padding: 10px 15px;
+                                text-align: center;
+                                user-select: none;
+                                -webkit-user-select: none;
+                                touch-action: manipulation;
+                            }
+                        </style>
+
+                    </div>
+                    
+
+                    <div class="form-group">
+                        <label>Fifth Installment Invoice</label>
+                        <input type="file" class="form-control" name="fifth_installment">
+                    </div>
+                    <div class="form-group">
+                        <label>Comment </label>
+                        <input type="text" class="form-control" name="five_comment" placeholder="Enter Comments">
+                      </div>
+                    <div class="form-group">
+                        <!-- HTML !-->
+                        <button class="button-62" role="button"><a download="{{clg_documents.fifth_installment}}"
+                                href="{{clg_documents.fifth_installment}}">Download</a></button>
+                        <style>
+                            /* CSS */
+                            .button-62 {
+                                background: linear-gradient(to bottom right, #EF4765, #FF9A5A);
+                                border: 0;
+                                border-radius: 12px;
+                                color: #FFFFFF;
+                                cursor: pointer;
+                                display: inline-block;
+                                font-family: -apple-system, system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+                                font-size: 16px;
+                                font-weight: 500;
+                                line-height: 2.5;
+                                outline: transparent;
+                                padding: 0 1rem;
+                                text-align: center;
+                                text-decoration: none !important;
+                                transition: box-shadow .2s ease-in-out;
+                                user-select: none;
+                                -webkit-user-select: none;
+                                touch-action: manipulation;
+                                white-space: nowrap;
+                            }
+
+                            .button-62:not([disabled]):focus {
+                                box-shadow: 0 0 .25rem rgba(0, 0, 0, 0.5), -.125rem -.125rem 1rem rgba(239, 71, 101, 0.5),
+                                    .125rem .125rem 1rem rgba(255, 154, 90, 0.5);
+                            }
+
+                            .button-62:not([disabled]):hover {
+                                box-shadow: 0 0 .25rem rgba(0, 0, 0, 0.5), -.125rem -.125rem 1rem rgba(239, 71, 101, 0.5),
+                                    .125rem .125rem 1rem rgba(255, 154, 90, 0.5);
+                            }
+                        </style>
+                        <!-- HTML !-->
+                        <button class="button-33" role="button"><a
+                                href="{{clg_documents.fifth_installment}}">View</a></button>
+                        <style>
+                            /* CSS */
+                            .button-33 {
+                                background-color: #c2fbd7;
+                                border-radius: 100px;
+                                box-shadow: rgba(44, 187, 99, .2) 0 -25px 18px -14px inset, rgba(44, 187, 99, .15) 0 1px 2px, rgba(44, 187, 99, .15) 0 2px 4px, rgba(44, 187, 99, .15) 0 4px 8px, rgba(44, 187, 99, .15) 0 8px 16px, rgba(44, 187, 99, .15) 0 16px 32px;
+                                color: green;
+                                cursor: pointer;
+                                display: inline-block;
+                                font-family: CerebriSans-Regular, -apple-system, system-ui, Roboto, sans-serif;
+                                padding: 7px 20px;
+                                text-align: center;
+                                text-decoration: none !important;
+                                transition: all 250ms;
+                                border: 0;
+                                font-size: 16px;
+                                user-select: none;
+                                -webkit-user-select: none;
+                                touch-action: manipulation;
+                            }
+
+                            .button-33:hover {
+                                box-shadow: rgba(44, 187, 99, .35) 0 -25px 18px -14px inset, rgba(44, 187, 99, .25) 0 1px 2px, rgba(44, 187, 99, .25) 0 2px 4px, rgba(44, 187, 99, .25) 0 4px 8px, rgba(44, 187, 99, .25) 0 8px 16px, rgba(44, 187, 99, .25) 0 16px 32px;
+                                transform: scale(1.05) rotate(-1deg);
+                            }
+                        </style>
+                        <button class="button-70" role="button" type="submit">Save</button>
+
+                        <!-- HTML !-->
+                        <style>
+                            /* CSS */
+                            .button-70 {
+                                background-image: linear-gradient(#0dccea, #0d70ea);
+                                border: 0;
+                                border-radius: 4px;
+                                box-shadow: rgba(0, 0, 0, .3) 0 5px 15px;
+                                box-sizing: border-box;
+                                color: #fff;
+                                cursor: pointer;
+                                font-family: Montserrat, sans-serif;
+                                font-size: .9em;
+                                margin: 5px;
+                                padding: 10px 15px;
+                                text-align: center;
+                                user-select: none;
+                                -webkit-user-select: none;
+                                touch-action: manipulation;
+                            }
+                        </style>
+
+                    </div>
+                    
+
+                    <div class="form-group">
+                        <label>Sixth Installment Invoice</label>
+                        <input type="file" class="form-control" name="sixth_installment">
+                    </div>
+                    <div class="form-group">
+                        <label>Comment </label>
+                        <input type="text" class="form-control" name="six_comment" placeholder="Enter Comments">
+                      </div>
+                    <div class="form-group">
+                        <!-- HTML !-->
+                        <button class="button-62" role="button"><a download="{{clg_documents.sixth_installment}}"
+                                href="{{clg_documents.sixth_installment}}">Download</a></button>
+                        <style>
+                            /* CSS */
+                            .button-62 {
+                                background: linear-gradient(to bottom right, #EF4765, #FF9A5A);
+                                border: 0;
+                                border-radius: 12px;
+                                color: #FFFFFF;
+                                cursor: pointer;
+                                display: inline-block;
+                                font-family: -apple-system, system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+                                font-size: 16px;
+                                font-weight: 500;
+                                line-height: 2.5;
+                                outline: transparent;
+                                padding: 0 1rem;
+                                text-align: center;
+                                text-decoration: none !important;
+                                transition: box-shadow .2s ease-in-out;
+                                user-select: none;
+                                -webkit-user-select: none;
+                                touch-action: manipulation;
+                                white-space: nowrap;
+                            }
+
+                            .button-62:not([disabled]):focus {
+                                box-shadow: 0 0 .25rem rgba(0, 0, 0, 0.5), -.125rem -.125rem 1rem rgba(239, 71, 101, 0.5),
+                                    .125rem .125rem 1rem rgba(255, 154, 90, 0.5);
+                            }
+
+                            .button-62:not([disabled]):hover {
+                                box-shadow: 0 0 .25rem rgba(0, 0, 0, 0.5), -.125rem -.125rem 1rem rgba(239, 71, 101, 0.5),
+                                    .125rem .125rem 1rem rgba(255, 154, 90, 0.5);
+                            }
+                        </style>
+                        <!-- HTML !-->
+                        <button class="button-33" role="button"><a
+                                href="{{clg_documents.sixth_installment}}">View</a></button>
+                        <style>
+                            /* CSS */
+                            .button-33 {
+                                background-color: #c2fbd7;
+                                border-radius: 100px;
+                                box-shadow: rgba(44, 187, 99, .2) 0 -25px 18px -14px inset, rgba(44, 187, 99, .15) 0 1px 2px, rgba(44, 187, 99, .15) 0 2px 4px, rgba(44, 187, 99, .15) 0 4px 8px, rgba(44, 187, 99, .15) 0 8px 16px, rgba(44, 187, 99, .15) 0 16px 32px;
+                                color: green;
+                                cursor: pointer;
+                                display: inline-block;
+                                font-family: CerebriSans-Regular, -apple-system, system-ui, Roboto, sans-serif;
+                                padding: 7px 20px;
+                                text-align: center;
+                                text-decoration: none !important;
+                                transition: all 250ms;
+                                border: 0;
+                                font-size: 16px;
+                                user-select: none;
+                                -webkit-user-select: none;
+                                touch-action: manipulation;
+                            }
+
+                            .button-33:hover {
+                                box-shadow: rgba(44, 187, 99, .35) 0 -25px 18px -14px inset, rgba(44, 187, 99, .25) 0 1px 2px, rgba(44, 187, 99, .25) 0 2px 4px, rgba(44, 187, 99, .25) 0 4px 8px, rgba(44, 187, 99, .25) 0 8px 16px, rgba(44, 187, 99, .25) 0 16px 32px;
+                                transform: scale(1.05) rotate(-1deg);
+                            }
+                        </style>
+                        <button class="button-70" role="button" type="submit">Save</button>
+
+                        <!-- HTML !-->
+                        <style>
+                            /* CSS */
+                            .button-70 {
+                                background-image: linear-gradient(#0dccea, #0d70ea);
+                                border: 0;
+                                border-radius: 4px;
+                                box-shadow: rgba(0, 0, 0, .3) 0 5px 15px;
+                                box-sizing: border-box;
+                                color: #fff;
+                                cursor: pointer;
+                                font-family: Montserrat, sans-serif;
+                                font-size: .9em;
+                                margin: 5px;
+                                padding: 10px 15px;
+                                text-align: center;
+                                user-select: none;
+                                -webkit-user-select: none;
+                                touch-action: manipulation;
+                            }
+                        </style>
+
+                    </div>
+                    
+
+                    <div class="form-group">
+                        <label>Seventh Installment Invoice</label>
+                        <input type="file" class="form-control" name="seventh_installment">
+                    </div>
+                    <div class="form-group">
+                        <label>Comment </label>
+                        <input type="text" class="form-control" name="seven_comment" placeholder="Enter Comments">
+                      </div>
+                    <div class="form-group">
+                        <!-- HTML !-->
+                        <button class="button-62" role="button"><a download="{{clg_documents.seventh_installment}}"
+                                href="{{clg_documents.seventh_installment}}">Download</a></button>
+                        <style>
+                            /* CSS */
+                            .button-62 {
+                                background: linear-gradient(to bottom right, #EF4765, #FF9A5A);
+                                border: 0;
+                                border-radius: 12px;
+                                color: #FFFFFF;
+                                cursor: pointer;
+                                display: inline-block;
+                                font-family: -apple-system, system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+                                font-size: 16px;
+                                font-weight: 500;
+                                line-height: 2.5;
+                                outline: transparent;
+                                padding: 0 1rem;
+                                text-align: center;
+                                text-decoration: none !important;
+                                transition: box-shadow .2s ease-in-out;
+                                user-select: none;
+                                -webkit-user-select: none;
+                                touch-action: manipulation;
+                                white-space: nowrap;
+                            }
+
+                            .button-62:not([disabled]):focus {
+                                box-shadow: 0 0 .25rem rgba(0, 0, 0, 0.5), -.125rem -.125rem 1rem rgba(239, 71, 101, 0.5),
+                                    .125rem .125rem 1rem rgba(255, 154, 90, 0.5);
+                            }
+
+                            .button-62:not([disabled]):hover {
+                                box-shadow: 0 0 .25rem rgba(0, 0, 0, 0.5), -.125rem -.125rem 1rem rgba(239, 71, 101, 0.5),
+                                    .125rem .125rem 1rem rgba(255, 154, 90, 0.5);
+                            }
+                        </style>
+                        <!-- HTML !-->
+                        <button class="button-33" role="button"><a
+                                href="{{clg_documents.seventh_installment}}">View</a></button>
+                        <style>
+                            /* CSS */
+                            .button-33 {
+                                background-color: #c2fbd7;
+                                border-radius: 100px;
+                                box-shadow: rgba(44, 187, 99, .2) 0 -25px 18px -14px inset, rgba(44, 187, 99, .15) 0 1px 2px, rgba(44, 187, 99, .15) 0 2px 4px, rgba(44, 187, 99, .15) 0 4px 8px, rgba(44, 187, 99, .15) 0 8px 16px, rgba(44, 187, 99, .15) 0 16px 32px;
+                                color: green;
+                                cursor: pointer;
+                                display: inline-block;
+                                font-family: CerebriSans-Regular, -apple-system, system-ui, Roboto, sans-serif;
+                                padding: 7px 20px;
+                                text-align: center;
+                                text-decoration: none !important;
+                                transition: all 250ms;
+                                border: 0;
+                                font-size: 16px;
+                                user-select: none;
+                                -webkit-user-select: none;
+                                touch-action: manipulation;
+                            }
+
+                            .button-33:hover {
+                                box-shadow: rgba(44, 187, 99, .35) 0 -25px 18px -14px inset, rgba(44, 187, 99, .25) 0 1px 2px, rgba(44, 187, 99, .25) 0 2px 4px, rgba(44, 187, 99, .25) 0 4px 8px, rgba(44, 187, 99, .25) 0 8px 16px, rgba(44, 187, 99, .25) 0 16px 32px;
+                                transform: scale(1.05) rotate(-1deg);
+                            }
+                        </style>
+                        <button class="button-70" role="button" type="submit">Save</button>
+
+                        <!-- HTML !-->
+                        <style>
+                            /* CSS */
+                            .button-70 {
+                                background-image: linear-gradient(#0dccea, #0d70ea);
+                                border: 0;
+                                border-radius: 4px;
+                                box-shadow: rgba(0, 0, 0, .3) 0 5px 15px;
+                                box-sizing: border-box;
+                                color: #fff;
+                                cursor: pointer;
+                                font-family: Montserrat, sans-serif;
+                                font-size: .9em;
+                                margin: 5px;
+                                padding: 10px 15px;
+                                text-align: center;
+                                user-select: none;
+                                -webkit-user-select: none;
+                                touch-action: manipulation;
+                            }
+                        </style>
+
+                    </div>
+                    
+
+                    <div class="form-group">
+                        <label>Eighth Installment Invoice</label>
+                        <input type="file" class="form-control" name="eighth_installment">
+                    </div>
+                    <div class="form-group">
+                        <label>Comment </label>
+                        <input type="text" class="form-control" name="eight_comment" placeholder="Enter Comments">
+                      </div>
+                    <div class="form-group">
+                        <!-- HTML !-->
+                        <button class="button-62" role="button"><a download="{{clg_documents.eighth_installment}}"
+                                href="{{clg_documents.eighth_installment}}">Download</a></button>
+                        <style>
+                            /* CSS */
+                            .button-62 {
+                                background: linear-gradient(to bottom right, #EF4765, #FF9A5A);
+                                border: 0;
+                                border-radius: 12px;
+                                color: #FFFFFF;
+                                cursor: pointer;
+                                display: inline-block;
+                                font-family: -apple-system, system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+                                font-size: 16px;
+                                font-weight: 500;
+                                line-height: 2.5;
+                                outline: transparent;
+                                padding: 0 1rem;
+                                text-align: center;
+                                text-decoration: none !important;
+                                transition: box-shadow .2s ease-in-out;
+                                user-select: none;
+                                -webkit-user-select: none;
+                                touch-action: manipulation;
+                                white-space: nowrap;
+                            }
+
+                            .button-62:not([disabled]):focus {
+                                box-shadow: 0 0 .25rem rgba(0, 0, 0, 0.5), -.125rem -.125rem 1rem rgba(239, 71, 101, 0.5),
+                                    .125rem .125rem 1rem rgba(255, 154, 90, 0.5);
+                            }
+
+                            .button-62:not([disabled]):hover {
+                                box-shadow: 0 0 .25rem rgba(0, 0, 0, 0.5), -.125rem -.125rem 1rem rgba(239, 71, 101, 0.5),
+                                    .125rem .125rem 1rem rgba(255, 154, 90, 0.5);
+                            }
+                        </style>
+                        <!-- HTML !-->
+                        <button class="button-33" role="button"><a
+                                href="{{clg_documents.eighth_installment}}">View</a></button>
+                        <style>
+                            /* CSS */
+                            .button-33 {
+                                background-color: #c2fbd7;
+                                border-radius: 100px;
+                                box-shadow: rgba(44, 187, 99, .2) 0 -25px 18px -14px inset, rgba(44, 187, 99, .15) 0 1px 2px, rgba(44, 187, 99, .15) 0 2px 4px, rgba(44, 187, 99, .15) 0 4px 8px, rgba(44, 187, 99, .15) 0 8px 16px, rgba(44, 187, 99, .15) 0 16px 32px;
+                                color: green;
+                                cursor: pointer;
+                                display: inline-block;
+                                font-family: CerebriSans-Regular, -apple-system, system-ui, Roboto, sans-serif;
+                                padding: 7px 20px;
+                                text-align: center;
+                                text-decoration: none !important;
+                                transition: all 250ms;
+                                border: 0;
+                                font-size: 16px;
+                                user-select: none;
+                                -webkit-user-select: none;
+                                touch-action: manipulation;
+                            }
+
+                            .button-33:hover {
+                                box-shadow: rgba(44, 187, 99, .35) 0 -25px 18px -14px inset, rgba(44, 187, 99, .25) 0 1px 2px, rgba(44, 187, 99, .25) 0 2px 4px, rgba(44, 187, 99, .25) 0 4px 8px, rgba(44, 187, 99, .25) 0 8px 16px, rgba(44, 187, 99, .25) 0 16px 32px;
+                                transform: scale(1.05) rotate(-1deg);
+                            }
+                        </style>
+                        <button class="button-70" role="button" type="submit">Save</button>
+
+                        <!-- HTML !-->
+                        <style>
+                            /* CSS */
+                            .button-70 {
+                                background-image: linear-gradient(#0dccea, #0d70ea);
+                                border: 0;
+                                border-radius: 4px;
+                                box-shadow: rgba(0, 0, 0, .3) 0 5px 15px;
+                                box-sizing: border-box;
+                                color: #fff;
+                                cursor: pointer;
+                                font-family: Montserrat, sans-serif;
+                                font-size: .9em;
+                                margin: 5px;
+                                padding: 10px 15px;
+                                text-align: center;
+                                user-select: none;
+                                -webkit-user-select: none;
+                                touch-action: manipulation;
+                            }
+                        </style>
+
+                    </div>
+                    
+
+                    
+                    <div class="form-group">
+                        <label>First Semester Result</label>
+                        <input type="file" class="form-control" name="first_semester">
+                    </div>
+                    <div class="form-group">
+                        <label>Comment </label>
+                        <input type="text" class="form-control" name="first_comment" placeholder="Enter Comments">
+                      </div>
+                    <div class="form-group">
+                        <!-- HTML !-->
+                        <button class="button-62" role="button"><a download="{{clg_documents.first_semester}}"
+                                href="{{clg_documents.first_semester}}">Download</a></button>
+                        <style>
+                            /* CSS */
+                            .button-62 {
+                                background: linear-gradient(to bottom right, #EF4765, #FF9A5A);
+                                border: 0;
+                                border-radius: 12px;
+                                color: #FFFFFF;
+                                cursor: pointer;
+                                display: inline-block;
+                                font-family: -apple-system, system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+                                font-size: 16px;
+                                font-weight: 500;
+                                line-height: 2.5;
+                                outline: transparent;
+                                padding: 0 1rem;
+                                text-align: center;
+                                text-decoration: none !important;
+                                transition: box-shadow .2s ease-in-out;
+                                user-select: none;
+                                -webkit-user-select: none;
+                                touch-action: manipulation;
+                                white-space: nowrap;
+                            }
+
+                            .button-62:not([disabled]):focus {
+                                box-shadow: 0 0 .25rem rgba(0, 0, 0, 0.5), -.125rem -.125rem 1rem rgba(239, 71, 101, 0.5),
+                                    .125rem .125rem 1rem rgba(255, 154, 90, 0.5);
+                            }
+
+                            .button-62:not([disabled]):hover {
+                                box-shadow: 0 0 .25rem rgba(0, 0, 0, 0.5), -.125rem -.125rem 1rem rgba(239, 71, 101, 0.5),
+                                    .125rem .125rem 1rem rgba(255, 154, 90, 0.5);
+                            }
+                        </style>
+                        <!-- HTML !-->
+                        <button class="button-33" role="button"><a
+                                href="{{clg_documents.first_semester}}">View</a></button>
+                        <style>
+                            /* CSS */
+                            .button-33 {
+                                background-color: #c2fbd7;
+                                border-radius: 100px;
+                                box-shadow: rgba(44, 187, 99, .2) 0 -25px 18px -14px inset, rgba(44, 187, 99, .15) 0 1px 2px, rgba(44, 187, 99, .15) 0 2px 4px, rgba(44, 187, 99, .15) 0 4px 8px, rgba(44, 187, 99, .15) 0 8px 16px, rgba(44, 187, 99, .15) 0 16px 32px;
+                                color: green;
+                                cursor: pointer;
+                                display: inline-block;
+                                font-family: CerebriSans-Regular, -apple-system, system-ui, Roboto, sans-serif;
+                                padding: 7px 20px;
+                                text-align: center;
+                                text-decoration: none !important;
+                                transition: all 250ms;
+                                border: 0;
+                                font-size: 16px;
+                                user-select: none;
+                                -webkit-user-select: none;
+                                touch-action: manipulation;
+                            }
+
+                            .button-33:hover {
+                                box-shadow: rgba(44, 187, 99, .35) 0 -25px 18px -14px inset, rgba(44, 187, 99, .25) 0 1px 2px, rgba(44, 187, 99, .25) 0 2px 4px, rgba(44, 187, 99, .25) 0 4px 8px, rgba(44, 187, 99, .25) 0 8px 16px, rgba(44, 187, 99, .25) 0 16px 32px;
+                                transform: scale(1.05) rotate(-1deg);
+                            }
+                        </style>
+                        <button class="button-70" role="button" type="submit">Save</button>
+
+                        <!-- HTML !-->
+                        <style>
+                            /* CSS */
+                            .button-70 {
+                                background-image: linear-gradient(#0dccea, #0d70ea);
+                                border: 0;
+                                border-radius: 4px;
+                                box-shadow: rgba(0, 0, 0, .3) 0 5px 15px;
+                                box-sizing: border-box;
+                                color: #fff;
+                                cursor: pointer;
+                                font-family: Montserrat, sans-serif;
+                                font-size: .9em;
+                                margin: 5px;
+                                padding: 10px 15px;
+                                text-align: center;
+                                user-select: none;
+                                -webkit-user-select: none;
+                                touch-action: manipulation;
+                            }
+                        </style>
+
+                    </div>
+                    
+
+                    <div class="form-group">
+                        <label>Second Semester Result</label>
+                        <input type="file" class="form-control" name="second_semester">
+                    </div>
+                    <div class="form-group">
+                        <label>Comment </label>
+                        <input type="text" class="form-control" name="second_comment" placeholder="Enter Comments">
+                      </div>
+                    <div class="form-group">
+                        <!-- HTML !-->
+                        <button class="button-62" role="button"><a download="{{clg_documents.second_semester}}"
+                                href="{{clg_documents.second_semester}}">Download</a></button>
+                        <style>
+                            /* CSS */
+                            .button-62 {
+                                background: linear-gradient(to bottom right, #EF4765, #FF9A5A);
+                                border: 0;
+                                border-radius: 12px;
+                                color: #FFFFFF;
+                                cursor: pointer;
+                                display: inline-block;
+                                font-family: -apple-system, system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+                                font-size: 16px;
+                                font-weight: 500;
+                                line-height: 2.5;
+                                outline: transparent;
+                                padding: 0 1rem;
+                                text-align: center;
+                                text-decoration: none !important;
+                                transition: box-shadow .2s ease-in-out;
+                                user-select: none;
+                                -webkit-user-select: none;
+                                touch-action: manipulation;
+                                white-space: nowrap;
+                            }
+
+                            .button-62:not([disabled]):focus {
+                                box-shadow: 0 0 .25rem rgba(0, 0, 0, 0.5), -.125rem -.125rem 1rem rgba(239, 71, 101, 0.5),
+                                    .125rem .125rem 1rem rgba(255, 154, 90, 0.5);
+                            }
+
+                            .button-62:not([disabled]):hover {
+                                box-shadow: 0 0 .25rem rgba(0, 0, 0, 0.5), -.125rem -.125rem 1rem rgba(239, 71, 101, 0.5),
+                                    .125rem .125rem 1rem rgba(255, 154, 90, 0.5);
+                            }
+                        </style>
+                        <!-- HTML !-->
+                        <button class="button-33" role="button"><a
+                                href="{{clg_documents.second_semester}}">View</a></button>
+                        <style>
+                            /* CSS */
+                            .button-33 {
+                                background-color: #c2fbd7;
+                                border-radius: 100px;
+                                box-shadow: rgba(44, 187, 99, .2) 0 -25px 18px -14px inset, rgba(44, 187, 99, .15) 0 1px 2px, rgba(44, 187, 99, .15) 0 2px 4px, rgba(44, 187, 99, .15) 0 4px 8px, rgba(44, 187, 99, .15) 0 8px 16px, rgba(44, 187, 99, .15) 0 16px 32px;
+                                color: green;
+                                cursor: pointer;
+                                display: inline-block;
+                                font-family: CerebriSans-Regular, -apple-system, system-ui, Roboto, sans-serif;
+                                padding: 7px 20px;
+                                text-align: center;
+                                text-decoration: none !important;
+                                transition: all 250ms;
+                                border: 0;
+                                font-size: 16px;
+                                user-select: none;
+                                -webkit-user-select: none;
+                                touch-action: manipulation;
+                            }
+
+                            .button-33:hover {
+                                box-shadow: rgba(44, 187, 99, .35) 0 -25px 18px -14px inset, rgba(44, 187, 99, .25) 0 1px 2px, rgba(44, 187, 99, .25) 0 2px 4px, rgba(44, 187, 99, .25) 0 4px 8px, rgba(44, 187, 99, .25) 0 8px 16px, rgba(44, 187, 99, .25) 0 16px 32px;
+                                transform: scale(1.05) rotate(-1deg);
+                            }
+                        </style>
+                        <button class="button-70" role="button" type="submit">Save</button>
+
+                        <!-- HTML !-->
+                        <style>
+                            /* CSS */
+                            .button-70 {
+                                background-image: linear-gradient(#0dccea, #0d70ea);
+                                border: 0;
+                                border-radius: 4px;
+                                box-shadow: rgba(0, 0, 0, .3) 0 5px 15px;
+                                box-sizing: border-box;
+                                color: #fff;
+                                cursor: pointer;
+                                font-family: Montserrat, sans-serif;
+                                font-size: .9em;
+                                margin: 5px;
+                                padding: 10px 15px;
+                                text-align: center;
+                                user-select: none;
+                                -webkit-user-select: none;
+                                touch-action: manipulation;
+                            }
+                        </style>
+
+                    </div>
+                    
+
+                    <div class="form-group">
+                        <label>Third Semester Result</label>
+                        <input type="file" class="form-control" name="third_semester">
+                    </div>
+                    <div class="form-group">
+                        <label>Comment </label>
+                        <input type="text" class="form-control" name="third_comment" placeholder="Enter Comments">
+                      </div>
+                    <div class="form-group">
+                        <!-- HTML !-->
+                        <button class="button-62" role="button"><a download="{{clg_documents.third_semester}}"
+                                href="{{clg_documents.third_semester}}">Download</a></button>
+                        <style>
+                            /* CSS */
+                            .button-62 {
+                                background: linear-gradient(to bottom right, #EF4765, #FF9A5A);
+                                border: 0;
+                                border-radius: 12px;
+                                color: #FFFFFF;
+                                cursor: pointer;
+                                display: inline-block;
+                                font-family: -apple-system, system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+                                font-size: 16px;
+                                font-weight: 500;
+                                line-height: 2.5;
+                                outline: transparent;
+                                padding: 0 1rem;
+                                text-align: center;
+                                text-decoration: none !important;
+                                transition: box-shadow .2s ease-in-out;
+                                user-select: none;
+                                -webkit-user-select: none;
+                                touch-action: manipulation;
+                                white-space: nowrap;
+                            }
+
+                            .button-62:not([disabled]):focus {
+                                box-shadow: 0 0 .25rem rgba(0, 0, 0, 0.5), -.125rem -.125rem 1rem rgba(239, 71, 101, 0.5),
+                                    .125rem .125rem 1rem rgba(255, 154, 90, 0.5);
+                            }
+
+                            .button-62:not([disabled]):hover {
+                                box-shadow: 0 0 .25rem rgba(0, 0, 0, 0.5), -.125rem -.125rem 1rem rgba(239, 71, 101, 0.5),
+                                    .125rem .125rem 1rem rgba(255, 154, 90, 0.5);
+                            }
+                        </style>
+                        <!-- HTML !-->
+                        <button class="button-33" role="button"><a
+                                href="{{clg_documents.third_semester}}">View</a></button>
+                        <style>
+                            /* CSS */
+                            .button-33 {
+                                background-color: #c2fbd7;
+                                border-radius: 100px;
+                                box-shadow: rgba(44, 187, 99, .2) 0 -25px 18px -14px inset, rgba(44, 187, 99, .15) 0 1px 2px, rgba(44, 187, 99, .15) 0 2px 4px, rgba(44, 187, 99, .15) 0 4px 8px, rgba(44, 187, 99, .15) 0 8px 16px, rgba(44, 187, 99, .15) 0 16px 32px;
+                                color: green;
+                                cursor: pointer;
+                                display: inline-block;
+                                font-family: CerebriSans-Regular, -apple-system, system-ui, Roboto, sans-serif;
+                                padding: 7px 20px;
+                                text-align: center;
+                                text-decoration: none !important;
+                                transition: all 250ms;
+                                border: 0;
+                                font-size: 16px;
+                                user-select: none;
+                                -webkit-user-select: none;
+                                touch-action: manipulation;
+                            }
+
+                            .button-33:hover {
+                                box-shadow: rgba(44, 187, 99, .35) 0 -25px 18px -14px inset, rgba(44, 187, 99, .25) 0 1px 2px, rgba(44, 187, 99, .25) 0 2px 4px, rgba(44, 187, 99, .25) 0 4px 8px, rgba(44, 187, 99, .25) 0 8px 16px, rgba(44, 187, 99, .25) 0 16px 32px;
+                                transform: scale(1.05) rotate(-1deg);
+                            }
+                        </style>
+                        <button class="button-70" role="button" type="submit">Save</button>
+
+                        <!-- HTML !-->
+                        <style>
+                            /* CSS */
+                            .button-70 {
+                                background-image: linear-gradient(#0dccea, #0d70ea);
+                                border: 0;
+                                border-radius: 4px;
+                                box-shadow: rgba(0, 0, 0, .3) 0 5px 15px;
+                                box-sizing: border-box;
+                                color: #fff;
+                                cursor: pointer;
+                                font-family: Montserrat, sans-serif;
+                                font-size: .9em;
+                                margin: 5px;
+                                padding: 10px 15px;
+                                text-align: center;
+                                user-select: none;
+                                -webkit-user-select: none;
+                                touch-action: manipulation;
+                            }
+                        </style>
+
+                    </div>
+                    
+
+                    <div class="form-group">
+                        <label>Fourth Semester Result</label>
+                        <input type="file" class="form-control" name="fourth_semester">
+                    </div>
+                    <div class="form-group">
+                        <label>Comment </label>
+                        <input type="text" class="form-control" name="fourth_comment" placeholder="Enter Comments">
+                      </div>
+                    <div class="form-group">
+                        <!-- HTML !-->
+                        <button class="button-62" role="button"><a download="{{clg_documents.fourth_semester}}"
+                                href="{{clg_documents.fourth_semester}}">Download</a></button>
+                        <style>
+                            /* CSS */
+                            .button-62 {
+                                background: linear-gradient(to bottom right, #EF4765, #FF9A5A);
+                                border: 0;
+                                border-radius: 12px;
+                                color: #FFFFFF;
+                                cursor: pointer;
+                                display: inline-block;
+                                font-family: -apple-system, system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+                                font-size: 16px;
+                                font-weight: 500;
+                                line-height: 2.5;
+                                outline: transparent;
+                                padding: 0 1rem;
+                                text-align: center;
+                                text-decoration: none !important;
+                                transition: box-shadow .2s ease-in-out;
+                                user-select: none;
+                                -webkit-user-select: none;
+                                touch-action: manipulation;
+                                white-space: nowrap;
+                            }
+
+                            .button-62:not([disabled]):focus {
+                                box-shadow: 0 0 .25rem rgba(0, 0, 0, 0.5), -.125rem -.125rem 1rem rgba(239, 71, 101, 0.5),
+                                    .125rem .125rem 1rem rgba(255, 154, 90, 0.5);
+                            }
+
+                            .button-62:not([disabled]):hover {
+                                box-shadow: 0 0 .25rem rgba(0, 0, 0, 0.5), -.125rem -.125rem 1rem rgba(239, 71, 101, 0.5),
+                                    .125rem .125rem 1rem rgba(255, 154, 90, 0.5);
+                            }
+                        </style>
+                        <!-- HTML !-->
+                        <button class="button-33" role="button"><a
+                                href="{{clg_documents.fourth_semester}}">View</a></button>
+                        <style>
+                            /* CSS */
+                            .button-33 {
+                                background-color: #c2fbd7;
+                                border-radius: 100px;
+                                box-shadow: rgba(44, 187, 99, .2) 0 -25px 18px -14px inset, rgba(44, 187, 99, .15) 0 1px 2px, rgba(44, 187, 99, .15) 0 2px 4px, rgba(44, 187, 99, .15) 0 4px 8px, rgba(44, 187, 99, .15) 0 8px 16px, rgba(44, 187, 99, .15) 0 16px 32px;
+                                color: green;
+                                cursor: pointer;
+                                display: inline-block;
+                                font-family: CerebriSans-Regular, -apple-system, system-ui, Roboto, sans-serif;
+                                padding: 7px 20px;
+                                text-align: center;
+                                text-decoration: none !important;
+                                transition: all 250ms;
+                                border: 0;
+                                font-size: 16px;
+                                user-select: none;
+                                -webkit-user-select: none;
+                                touch-action: manipulation;
+                            }
+
+                            .button-33:hover {
+                                box-shadow: rgba(44, 187, 99, .35) 0 -25px 18px -14px inset, rgba(44, 187, 99, .25) 0 1px 2px, rgba(44, 187, 99, .25) 0 2px 4px, rgba(44, 187, 99, .25) 0 4px 8px, rgba(44, 187, 99, .25) 0 8px 16px, rgba(44, 187, 99, .25) 0 16px 32px;
+                                transform: scale(1.05) rotate(-1deg);
+                            }
+                        </style>
+                        <button class="button-70" role="button" type="submit">Save</button>
+
+                        <!-- HTML !-->
+                        <style>
+                            /* CSS */
+                            .button-70 {
+                                background-image: linear-gradient(#0dccea, #0d70ea);
+                                border: 0;
+                                border-radius: 4px;
+                                box-shadow: rgba(0, 0, 0, .3) 0 5px 15px;
+                                box-sizing: border-box;
+                                color: #fff;
+                                cursor: pointer;
+                                font-family: Montserrat, sans-serif;
+                                font-size: .9em;
+                                margin: 5px;
+                                padding: 10px 15px;
+                                text-align: center;
+                                user-select: none;
+                                -webkit-user-select: none;
+                                touch-action: manipulation;
+                            }
+                        </style>
+
+                    </div>
+                    
+
+                    <div class="form-group">
+                        <label>Fifth Semester Result</label>
+                        <input type="file" class="form-control" name="fifth_semester">
+                    </div>
+                    <div class="form-group">
+                        <label>Comment </label>
+                        <input type="text" class="form-control" name="fifth_comment" placeholder="Enter Comments">
+                      </div>
+                    <div class="form-group">
+                        <!-- HTML !-->
+                        <button class="button-62" role="button"><a download="{{clg_documents.fifth_semester}}"
+                                href="{{clg_documents.fifth_semester}}">Download</a></button>
+                        <style>
+                            /* CSS */
+                            .button-62 {
+                                background: linear-gradient(to bottom right, #EF4765, #FF9A5A);
+                                border: 0;
+                                border-radius: 12px;
+                                color: #FFFFFF;
+                                cursor: pointer;
+                                display: inline-block;
+                                font-family: -apple-system, system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+                                font-size: 16px;
+                                font-weight: 500;
+                                line-height: 2.5;
+                                outline: transparent;
+                                padding: 0 1rem;
+                                text-align: center;
+                                text-decoration: none !important;
+                                transition: box-shadow .2s ease-in-out;
+                                user-select: none;
+                                -webkit-user-select: none;
+                                touch-action: manipulation;
+                                white-space: nowrap;
+                            }
+
+                            .button-62:not([disabled]):focus {
+                                box-shadow: 0 0 .25rem rgba(0, 0, 0, 0.5), -.125rem -.125rem 1rem rgba(239, 71, 101, 0.5),
+                                    .125rem .125rem 1rem rgba(255, 154, 90, 0.5);
+                            }
+
+                            .button-62:not([disabled]):hover {
+                                box-shadow: 0 0 .25rem rgba(0, 0, 0, 0.5), -.125rem -.125rem 1rem rgba(239, 71, 101, 0.5),
+                                    .125rem .125rem 1rem rgba(255, 154, 90, 0.5);
+                            }
+                        </style>
+                        <!-- HTML !-->
+                        <button class="button-33" role="button"><a
+                                href="{{clg_documents.fourth_semester}}">View</a></button>
+                        <style>
+                            /* CSS */
+                            .button-33 {
+                                background-color: #c2fbd7;
+                                border-radius: 100px;
+                                box-shadow: rgba(44, 187, 99, .2) 0 -25px 18px -14px inset, rgba(44, 187, 99, .15) 0 1px 2px, rgba(44, 187, 99, .15) 0 2px 4px, rgba(44, 187, 99, .15) 0 4px 8px, rgba(44, 187, 99, .15) 0 8px 16px, rgba(44, 187, 99, .15) 0 16px 32px;
+                                color: green;
+                                cursor: pointer;
+                                display: inline-block;
+                                font-family: CerebriSans-Regular, -apple-system, system-ui, Roboto, sans-serif;
+                                padding: 7px 20px;
+                                text-align: center;
+                                text-decoration: none !important;
+                                transition: all 250ms;
+                                border: 0;
+                                font-size: 16px;
+                                user-select: none;
+                                -webkit-user-select: none;
+                                touch-action: manipulation;
+                            }
+
+                            .button-33:hover {
+                                box-shadow: rgba(44, 187, 99, .35) 0 -25px 18px -14px inset, rgba(44, 187, 99, .25) 0 1px 2px, rgba(44, 187, 99, .25) 0 2px 4px, rgba(44, 187, 99, .25) 0 4px 8px, rgba(44, 187, 99, .25) 0 8px 16px, rgba(44, 187, 99, .25) 0 16px 32px;
+                                transform: scale(1.05) rotate(-1deg);
+                            }
+                        </style>
+                        <button class="button-70" role="button" type="submit">Save</button>
+
+                        <!-- HTML !-->
+                        <style>
+                            /* CSS */
+                            .button-70 {
+                                background-image: linear-gradient(#0dccea, #0d70ea);
+                                border: 0;
+                                border-radius: 4px;
+                                box-shadow: rgba(0, 0, 0, .3) 0 5px 15px;
+                                box-sizing: border-box;
+                                color: #fff;
+                                cursor: pointer;
+                                font-family: Montserrat, sans-serif;
+                                font-size: .9em;
+                                margin: 5px;
+                                padding: 10px 15px;
+                                text-align: center;
+                                user-select: none;
+                                -webkit-user-select: none;
+                                touch-action: manipulation;
+                            }
+                        </style>
+
+                    </div>
+                    
+
+                    <div class="form-group">
+                        <label>Six Semester Result</label>
+                        <input type="file" class="form-control" name="sixth_semester">
+                    </div>
+                    <div class="form-group">
+                        <label>Comment </label>
+                        <input type="text" class="form-control" name="sixth_comment" placeholder="Enter Comments">
+                      </div>
+                    <div class="form-group">
+                        <!-- HTML !-->
+                        <button class="button-62" role="button"><a download="{{clg_documents.sixth_semester}}"
+                                href="{{clg_documents.sixth_semester}}">Download</a></button>
+                        <style>
+                            /* CSS */
+                            .button-62 {
+                                background: linear-gradient(to bottom right, #EF4765, #FF9A5A);
+                                border: 0;
+                                border-radius: 12px;
+                                color: #FFFFFF;
+                                cursor: pointer;
+                                display: inline-block;
+                                font-family: -apple-system, system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+                                font-size: 16px;
+                                font-weight: 500;
+                                line-height: 2.5;
+                                outline: transparent;
+                                padding: 0 1rem;
+                                text-align: center;
+                                text-decoration: none !important;
+                                transition: box-shadow .2s ease-in-out;
+                                user-select: none;
+                                -webkit-user-select: none;
+                                touch-action: manipulation;
+                                white-space: nowrap;
+                            }
+
+                            .button-62:not([disabled]):focus {
+                                box-shadow: 0 0 .25rem rgba(0, 0, 0, 0.5), -.125rem -.125rem 1rem rgba(239, 71, 101, 0.5),
+                                    .125rem .125rem 1rem rgba(255, 154, 90, 0.5);
+                            }
+
+                            .button-62:not([disabled]):hover {
+                                box-shadow: 0 0 .25rem rgba(0, 0, 0, 0.5), -.125rem -.125rem 1rem rgba(239, 71, 101, 0.5),
+                                    .125rem .125rem 1rem rgba(255, 154, 90, 0.5);
+                            }
+                        </style>
+                        <!-- HTML !-->
+                        <button class="button-33" role="button"><a
+                                href="{{clg_documents.sixth_semester}}">View</a></button>
+                        <style>
+                            /* CSS */
+                            .button-33 {
+                                background-color: #c2fbd7;
+                                border-radius: 100px;
+                                box-shadow: rgba(44, 187, 99, .2) 0 -25px 18px -14px inset, rgba(44, 187, 99, .15) 0 1px 2px, rgba(44, 187, 99, .15) 0 2px 4px, rgba(44, 187, 99, .15) 0 4px 8px, rgba(44, 187, 99, .15) 0 8px 16px, rgba(44, 187, 99, .15) 0 16px 32px;
+                                color: green;
+                                cursor: pointer;
+                                display: inline-block;
+                                font-family: CerebriSans-Regular, -apple-system, system-ui, Roboto, sans-serif;
+                                padding: 7px 20px;
+                                text-align: center;
+                                text-decoration: none !important;
+                                transition: all 250ms;
+                                border: 0;
+                                font-size: 16px;
+                                user-select: none;
+                                -webkit-user-select: none;
+                                touch-action: manipulation;
+                            }
+
+                            .button-33:hover {
+                                box-shadow: rgba(44, 187, 99, .35) 0 -25px 18px -14px inset, rgba(44, 187, 99, .25) 0 1px 2px, rgba(44, 187, 99, .25) 0 2px 4px, rgba(44, 187, 99, .25) 0 4px 8px, rgba(44, 187, 99, .25) 0 8px 16px, rgba(44, 187, 99, .25) 0 16px 32px;
+                                transform: scale(1.05) rotate(-1deg);
+                            }
+                        </style>
+                        <button class="button-70" role="button" type="submit">Save</button>
+
+                        <!-- HTML !-->
+                        <style>
+                            /* CSS */
+                            .button-70 {
+                                background-image: linear-gradient(#0dccea, #0d70ea);
+                                border: 0;
+                                border-radius: 4px;
+                                box-shadow: rgba(0, 0, 0, .3) 0 5px 15px;
+                                box-sizing: border-box;
+                                color: #fff;
+                                cursor: pointer;
+                                font-family: Montserrat, sans-serif;
+                                font-size: .9em;
+                                margin: 5px;
+                                padding: 10px 15px;
+                                text-align: center;
+                                user-select: none;
+                                -webkit-user-select: none;
+                                touch-action: manipulation;
+                            }
+                        </style>
+
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Seven Semester Result</label>
+                        <input type="file" class="form-control" name="seventh_semester">
+                    </div>
+                    <div class="form-group">
+                        <label>Comment </label>
+                        <input type="text" class="form-control" name="seventh_comment" placeholder="Enter Comments">
+                      </div>
+                    <div class="form-group">
+                        <!-- HTML !-->
+                        <button class="button-62" role="button"><a download="{{clg_documents.seventh_semester}}"
+                                href="{{clg_documents.seventh_semester}}">Download</a></button>
+                        <style>
+                            /* CSS */
+                            .button-62 {
+                                background: linear-gradient(to bottom right, #EF4765, #FF9A5A);
+                                border: 0;
+                                border-radius: 12px;
+                                color: #FFFFFF;
+                                cursor: pointer;
+                                display: inline-block;
+                                font-family: -apple-system, system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+                                font-size: 16px;
+                                font-weight: 500;
+                                line-height: 2.5;
+                                outline: transparent;
+                                padding: 0 1rem;
+                                text-align: center;
+                                text-decoration: none !important;
+                                transition: box-shadow .2s ease-in-out;
+                                user-select: none;
+                                -webkit-user-select: none;
+                                touch-action: manipulation;
+                                white-space: nowrap;
+                            }
+
+                            .button-62:not([disabled]):focus {
+                                box-shadow: 0 0 .25rem rgba(0, 0, 0, 0.5), -.125rem -.125rem 1rem rgba(239, 71, 101, 0.5),
+                                    .125rem .125rem 1rem rgba(255, 154, 90, 0.5);
+                            }
+
+                            .button-62:not([disabled]):hover {
+                                box-shadow: 0 0 .25rem rgba(0, 0, 0, 0.5), -.125rem -.125rem 1rem rgba(239, 71, 101, 0.5),
+                                    .125rem .125rem 1rem rgba(255, 154, 90, 0.5);
+                            }
+                        </style>
+                        <!-- HTML !-->
+                        <button class="button-33" role="button"><a
+                                href="{{clg_documents.seventh_semester}}">View</a></button>
+                        <style>
+                            /* CSS */
+                            .button-33 {
+                                background-color: #c2fbd7;
+                                border-radius: 100px;
+                                box-shadow: rgba(44, 187, 99, .2) 0 -25px 18px -14px inset, rgba(44, 187, 99, .15) 0 1px 2px, rgba(44, 187, 99, .15) 0 2px 4px, rgba(44, 187, 99, .15) 0 4px 8px, rgba(44, 187, 99, .15) 0 8px 16px, rgba(44, 187, 99, .15) 0 16px 32px;
+                                color: green;
+                                cursor: pointer;
+                                display: inline-block;
+                                font-family: CerebriSans-Regular, -apple-system, system-ui, Roboto, sans-serif;
+                                padding: 7px 20px;
+                                text-align: center;
+                                text-decoration: none !important;
+                                transition: all 250ms;
+                                border: 0;
+                                font-size: 16px;
+                                user-select: none;
+                                -webkit-user-select: none;
+                                touch-action: manipulation;
+                            }
+
+                            .button-33:hover {
+                                box-shadow: rgba(44, 187, 99, .35) 0 -25px 18px -14px inset, rgba(44, 187, 99, .25) 0 1px 2px, rgba(44, 187, 99, .25) 0 2px 4px, rgba(44, 187, 99, .25) 0 4px 8px, rgba(44, 187, 99, .25) 0 8px 16px, rgba(44, 187, 99, .25) 0 16px 32px;
+                                transform: scale(1.05) rotate(-1deg);
+                            }
+                        </style>
+                        <button class="button-70" role="button" type="submit">Save</button>
+
+                        <!-- HTML !-->
+                        <style>
+                            /* CSS */
+                            .button-70 {
+                                background-image: linear-gradient(#0dccea, #0d70ea);
+                                border: 0;
+                                border-radius: 4px;
+                                box-shadow: rgba(0, 0, 0, .3) 0 5px 15px;
+                                box-sizing: border-box;
+                                color: #fff;
+                                cursor: pointer;
+                                font-family: Montserrat, sans-serif;
+                                font-size: .9em;
+                                margin: 5px;
+                                padding: 10px 15px;
+                                text-align: center;
+                                user-select: none;
+                                -webkit-user-select: none;
+                                touch-action: manipulation;
+                            }
+                        </style>
+
+                    </div>
+                    
+
+                    <div class="form-group">
+                        <label>Eight Semester Result</label>
+                        <input type="file" class="form-control" name="eighth_semester">
+                    </div>
+                    <div class="form-group">
+                        <label>Comment </label>
+                        <input type="text" class="form-control" name="eight_comment" placeholder="Enter Comments">
+                      </div>
+                    <div class="form-group">
+                        <!-- HTML !-->
+                        <button class="button-62" role="button"><a download="{{clg_documents.eighth_semester}}"
+                                href="{{clg_documents.eighth_semester}}">Download</a></button>
+                        <style>
+                            /* CSS */
+                            .button-62 {
+                                background: linear-gradient(to bottom right, #EF4765, #FF9A5A);
+                                border: 0;
+                                border-radius: 12px;
+                                color: #FFFFFF;
+                                cursor: pointer;
+                                display: inline-block;
+                                font-family: -apple-system, system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+                                font-size: 16px;
+                                font-weight: 500;
+                                line-height: 2.5;
+                                outline: transparent;
+                                padding: 0 1rem;
+                                text-align: center;
+                                text-decoration: none !important;
+                                transition: box-shadow .2s ease-in-out;
+                                user-select: none;
+                                -webkit-user-select: none;
+                                touch-action: manipulation;
+                                white-space: nowrap;
+                            }
+
+                            .button-62:not([disabled]):focus {
+                                box-shadow: 0 0 .25rem rgba(0, 0, 0, 0.5), -.125rem -.125rem 1rem rgba(239, 71, 101, 0.5),
+                                    .125rem .125rem 1rem rgba(255, 154, 90, 0.5);
+                            }
+
+                            .button-62:not([disabled]):hover {
+                                box-shadow: 0 0 .25rem rgba(0, 0, 0, 0.5), -.125rem -.125rem 1rem rgba(239, 71, 101, 0.5),
+                                    .125rem .125rem 1rem rgba(255, 154, 90, 0.5);
+                            }
+                        </style>
+                        <!-- HTML !-->
+                        <button class="button-33" role="button"><a
+                                href="{{clg_documents.eighth_semester}}">View</a></button>
+                        <style>
+                            /* CSS */
+                            .button-33 {
+                                background-color: #c2fbd7;
+                                border-radius: 100px;
+                                box-shadow: rgba(44, 187, 99, .2) 0 -25px 18px -14px inset, rgba(44, 187, 99, .15) 0 1px 2px, rgba(44, 187, 99, .15) 0 2px 4px, rgba(44, 187, 99, .15) 0 4px 8px, rgba(44, 187, 99, .15) 0 8px 16px, rgba(44, 187, 99, .15) 0 16px 32px;
+                                color: green;
+                                cursor: pointer;
+                                display: inline-block;
+                                font-family: CerebriSans-Regular, -apple-system, system-ui, Roboto, sans-serif;
+                                padding: 7px 20px;
+                                text-align: center;
+                                text-decoration: none !important;
+                                transition: all 250ms;
+                                border: 0;
+                                font-size: 16px;
+                                user-select: none;
+                                -webkit-user-select: none;
+                                touch-action: manipulation;
+                            }
+
+                            .button-33:hover {
+                                box-shadow: rgba(44, 187, 99, .35) 0 -25px 18px -14px inset, rgba(44, 187, 99, .25) 0 1px 2px, rgba(44, 187, 99, .25) 0 2px 4px, rgba(44, 187, 99, .25) 0 4px 8px, rgba(44, 187, 99, .25) 0 8px 16px, rgba(44, 187, 99, .25) 0 16px 32px;
+                                transform: scale(1.05) rotate(-1deg);
+                            }
+                        </style>
+                        <button class="button-70" role="button" type="submit">Save</button>
+
+                        <!-- HTML !-->
+                        <style>
+                            /* CSS */
+                            .button-70 {
+                                background-image: linear-gradient(#0dccea, #0d70ea);
+                                border: 0;
+                                border-radius: 4px;
+                                box-shadow: rgba(0, 0, 0, .3) 0 5px 15px;
+                                box-sizing: border-box;
+                                color: #fff;
+                                cursor: pointer;
+                                font-family: Montserrat, sans-serif;
+                                font-size: .9em;
+                                margin: 5px;
+                                padding: 10px 15px;
+                                text-align: center;
+                                user-select: none;
+                                -webkit-user-select: none;
+                                touch-action: manipulation;
+                            }
+                        </style>
+
+                    </div>
+                    
+
+                    <div class="form-group">
+                        <label>Other Documents</label>
+                        <input type="file" class="form-control" name="other_documents">
+                        <div class="form-group">
+                            <label>Comments </label>
+                            <input type="text" class="form-control" name="other_comment" placeholder="Enter Comments">
+                          </div>
+                    </div>
+                    <div class="form-group">
+                        <!-- HTML !-->
+                        <button class="button-62" role="button"><a download="{{clg_documents.other_documents}}"
+                                href="{{clg_documents.other_documents}}">Download</a></button>
+                        <style>
+                            /* CSS */
+                            .button-62 {
+                                background: linear-gradient(to bottom right, #EF4765, #FF9A5A);
+                                border: 0;
+                                border-radius: 12px;
+                                color: #FFFFFF;
+                                cursor: pointer;
+                                display: inline-block;
+                                font-family: -apple-system, system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+                                font-size: 16px;
+                                font-weight: 500;
+                                line-height: 2.5;
+                                outline: transparent;
+                                padding: 0 1rem;
+                                text-align: center;
+                                text-decoration: none !important;
+                                transition: box-shadow .2s ease-in-out;
+                                user-select: none;
+                                -webkit-user-select: none;
+                                touch-action: manipulation;
+                                white-space: nowrap;
+                            }
+
+                            .button-62:not([disabled]):focus {
+                                box-shadow: 0 0 .25rem rgba(0, 0, 0, 0.5), -.125rem -.125rem 1rem rgba(239, 71, 101, 0.5),
+                                    .125rem .125rem 1rem rgba(255, 154, 90, 0.5);
+                            }
+
+                            .button-62:not([disabled]):hover {
+                                box-shadow: 0 0 .25rem rgba(0, 0, 0, 0.5), -.125rem -.125rem 1rem rgba(239, 71, 101, 0.5),
+                                    .125rem .125rem 1rem rgba(255, 154, 90, 0.5);
+                            }
+                        </style>
+                        <!-- HTML !-->
+                        <button class="button-33" role="button"><a
+                                href="{{clg_documents.other_documents}}">View</a></button>
+                        <style>
+                            /* CSS */
+                            .button-33 {
+                                background-color: #c2fbd7;
+                                border-radius: 100px;
+                                box-shadow: rgba(44, 187, 99, .2) 0 -25px 18px -14px inset, rgba(44, 187, 99, .15) 0 1px 2px, rgba(44, 187, 99, .15) 0 2px 4px, rgba(44, 187, 99, .15) 0 4px 8px, rgba(44, 187, 99, .15) 0 8px 16px, rgba(44, 187, 99, .15) 0 16px 32px;
+                                color: green;
+                                cursor: pointer;
+                                display: inline-block;
+                                font-family: CerebriSans-Regular, -apple-system, system-ui, Roboto, sans-serif;
+                                padding: 7px 20px;
+                                text-align: center;
+                                text-decoration: none !important;
+                                transition: all 250ms;
+                                border: 0;
+                                font-size: 16px;
+                                user-select: none;
+                                -webkit-user-select: none;
+                                touch-action: manipulation;
+                            }
+
+                            .button-33:hover {
+                                box-shadow: rgba(44, 187, 99, .35) 0 -25px 18px -14px inset, rgba(44, 187, 99, .25) 0 1px 2px, rgba(44, 187, 99, .25) 0 2px 4px, rgba(44, 187, 99, .25) 0 4px 8px, rgba(44, 187, 99, .25) 0 8px 16px, rgba(44, 187, 99, .25) 0 16px 32px;
+                                transform: scale(1.05) rotate(-1deg);
+                            }
+                        </style>
+                        <button class="button-70" role="button" type="submit">Save</button>
+
+                        <!-- HTML !-->
+                        <style>
+                            /* CSS */
+                            .button-70 {
+                                background-image: linear-gradient(#0dccea, #0d70ea);
+                                border: 0;
+                                border-radius: 4px;
+                                box-shadow: rgba(0, 0, 0, .3) 0 5px 15px;
+                                box-sizing: border-box;
+                                color: #fff;
+                                cursor: pointer;
+                                font-family: Montserrat, sans-serif;
+                                font-size: .9em;
+                                margin: 5px;
+                                padding: 10px 15px;
+                                text-align: center;
+                                user-select: none;
+                                -webkit-user-select: none;
+                                touch-action: manipulation;
+                            }
+                        </style>
+
+                    </div>
+                    
+                    
+
+                    <!-- <div class="form-group">
+                        {% if messages %}
+                        {% for message in messages %}
+                        {% if message.tags == 'error' %}
+                        <div class="alert alert-danger" style="margin-top:10px">{{ message }}</div>
+                        {% endif %}
+                        {% if message.tags == 'success' %}
+                        <div class="alert alert-success" style="margin-top:10px">{{ message }}</div>
+                        {% endif %}
+                        {% endfor %}
+                        {% endif %}
+                    </div> -->
+
+                </div>
+                <!-- /.card-body -->
+
+                <!-- <div class="card-footer">
+                    <button type="submit" class="btn btn-primary btn-block">Upload Document</button>
+                </div> -->
+            </form>
+
+        </div>
+    </div>
+    </div>
+    <!-- #end main-container -->
+
+    </div>
+</section>
+<!-- /.content -->
+{% endblock main_content %}

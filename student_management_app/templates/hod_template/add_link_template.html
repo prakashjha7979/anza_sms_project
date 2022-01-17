@@ -1,0 +1,161 @@
+{% extends 'hod_template/base_template.html' %}
+{% block page_title %}
+Add Links
+{% endblock page_title %}
+{% block main_content %}
+    <!-- Main content -->
+    <section class="content">
+      <div class="container-fluid">
+          <div class="row">
+              <div class="col-md-12">
+            <!-- general form elements -->
+            <div class="card card-primary">
+              <div class="card-header">
+                <h3 class="card-title">Add Important And Classes links</h3>
+              </div>
+              <!-- /.card-header -->
+              <!-- form start -->
+              <form role="form" action="/imp_link_save" method="post">
+                  {% csrf_token %}
+                <div class="card-body">
+                  <div class="form-group">
+                    <label>Important link </label>
+                    <input type="text" class="form-control mb-2" name="important_name" placeholder="Enter link name" required>
+                    <input type="url" class="form-control mt-2" name="important_urls" placeholder="Enter Link">
+                    <input type="text" class="form-control mt-2" name="important_comment" placeholder="Enter Comment" required>
+                  </div>
+                  
+                  
+                   <div class="form-group">
+                      {% if messages %}
+                        {% for message in messages %}
+                        {% if message.tags == 'error' %}
+                        <div class="alert alert-danger" style="margin-top:10px">{{ message }}</div>
+                        {% endif %}
+                        {% if message.tags == 'success' %}
+                        <div class="alert alert-success" style="margin-top:10px">{{ message }}</div>
+                        {% endif %}
+                        {% endfor %}
+                      {% endif %}
+                    </div>
+
+                </div>
+                <!-- /.card-body -->
+
+                <div class="card-footer">
+                  <button type="submit" class="btn btn-primary btn-block">Add Link</button>
+                </div>
+              </form>
+
+              <div>
+                <form role="form" action="/cls_link_save" method="post">
+                    {% csrf_token %}
+                  <div class="card-body">
+                    <div class="form-group">
+                      <label>Class Links </label>
+                      <input type="text" class="form-control mb-3" name="class_name" placeholder="Enter name" required>
+                      <input type="url" class="form-control mb-3" name="class_urls" placeholder="Enter url">
+                      <input type="text" class="form-control mt-2" name="class_comment" placeholder="Enter Comment" required>
+                    </div>
+                    
+                     <div class="form-group">
+                        {% if messages %}
+                          {% for message in messages %}
+                          {% if message.tags == 'error' %}
+                          <div class="alert alert-danger" style="margin-top:10px">{{ message }}</div>
+                          {% endif %}
+                          {% if message.tags == 'success' %}
+                          <div class="alert alert-success" style="margin-top:10px">{{ message }}</div>
+                          {% endif %}
+                          {% endfor %}
+                        {% endif %}
+                      </div>
+  
+                  </div>
+                  <!-- /.card-body -->
+  
+                  <div class="card-footer">
+                    <button type="submit" class="btn btn-primary btn-block">Add Link</button>
+                  </div>
+                </form>  
+              </div>
+            </div>
+            <!-- /.card -->
+
+
+
+          </div>
+          </div>
+      </div>
+
+      <div class="container ">
+
+        <br><br>
+        <div class="row">
+          <div class="col-md-9">
+            <h5>All Imprtant Links:</h5>
+  
+            <div class="card card-body">
+              <table class="table table-sm">
+                <tr>
+                  <th>Important Links</th>
+                  <th>Comment</th>
+                  <th>Date</th>
+                  <th>Action</th>
+                </tr>
+                {% for n in links %}
+                {% if n.types in "IMPORTANT_LINKS" %}
+                <tr>
+                  <td>{{n.name}} </td>
+                  <td>{{n.comments}} </td>
+                  <td>{{n.created_at}} </td>
+                  <td><a href="{{n.urls}}" class="btn btn-success" target="_blank">Open link</a>
+                    <a href="{% url 'delete_link' n.id %}" class="btn btn-danger">Delete</a> </td>
+                  
+                </tr>
+                {% endif %}
+                {% endfor %}
+              </table>
+            </div>
+          </div>
+        </div>
+  
+        <br><br>
+      </div>
+
+      <div class="container ">
+
+        <br><br>
+        <div class="row">
+          <div class="col-md-9">
+            <h5>All Classes Links:</h5>
+  
+            <div class="card card-body">
+                <table class="table table-sm-responsive">
+                    <tr>
+                      <th>Classes Links</th>
+                      <th>Comment</th>
+                      <th>Date</th>
+                      <th>Action</th>
+                    </tr>
+                    {% for n in links %}
+                    {% if n.types in "CLASS_LINKS" %}
+                    <tr>
+                        <td>{{n.name}} </td>
+                        <td>{{n.comments}} </td>
+                        <td>{{n.created_at}} </td>
+                      <td><a href="{{n.urls}}" class="btn btn-success" target="_blank">Open link</a> 
+                        <a href="{% url 'delete_link' n.id %}" class="btn btn-danger">Delete</a></td>
+                    </tr>
+                    {% endif %}
+                    {% endfor %}
+                  </table>
+          </div>
+        </div>
+  
+        <br><br>
+      </div>
+    </section>
+    <!-- /.content -->
+{% endblock main_content %}
+

@@ -1,0 +1,58 @@
+{% extends 'student_template/base_template.html' %}
+{% block page_title %}
+INSTITUTE NOTICES
+{% endblock page_title %}
+{% block main_content %}
+    <!-- Main content -->
+    <section class="content">
+      <div class="container-fluid">
+          <div class="row">
+              <div class="col-md-12">
+            <!-- general form elements -->
+            <div class="card card-primary">
+              <div class="card-header">
+                <h3 class="card-title">Important Notices</h3>
+              </div>
+              <!-- /.card-header -->
+              <!-- form start -->
+            </div>
+            <!-- /.card -->
+
+
+
+          </div>
+          </div>
+
+          <div class="container ">
+ 
+            <br><br>
+        <div class="row">
+            <div class="col-md-9">
+                <h5>All Notices:</h5>
+                
+                <div class="card card-body">
+                    <table class="table table-sm">
+                        <tr>
+                            <th>Notice</th>
+                            <th>Date</th>
+                        </tr>
+                        {% for n in notice %}
+                        <tr>
+                            <td>{{n.message}} </td>
+                            <td>{{n.date}} </td>
+                        </tr>
+                        {% endfor %}
+                    </table>
+                </div>
+            </div>
+        </div>
+         
+        <br><br>
+      </div>
+    </section>
+    <!-- /.content -->
+{% endblock main_content %}
+{% block custom_js %}
+
+{% endblock custom_js %}
+

@@ -1,0 +1,238 @@
+{% extends 'student_template/base_template.html' %}
+{% block page_title %}
+Home
+{% endblock page_title %}
+{% block main_content %}
+<!-- Main content -->
+<section class="content">
+  <div class="container-fluid">
+    
+  <div class="row">
+
+  <div class="col-lg-3 col-6">
+    <!-- small box -->
+    <div class="small-box bg-info">
+      <div class="inner">
+        <h3>{{ total_attendance }}</h3>
+
+        <p>Total Attendance</p>
+      </div>
+      <div class="icon">
+        <i class="ion ion-stats-bars"></i>
+      </div>
+      <a href="{% url 'student_view_attendance' %}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+    </div>
+  </div>
+  <!-- ./col -->
+  <div class="col-lg-3 col-6">
+    <!-- small box -->
+    <div class="small-box bg-success">
+      <div class="inner">
+        <h3>{{ attendance_absent }}</h3>
+
+        <p>Absent</p>
+      </div>
+      <div class="icon">
+        <i class="ion ion-stats-bars"></i>
+      </div>
+      <a href="{% url 'student_view_attendance' %}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+    </div>
+  </div>
+  <!-- ./col -->
+  <div class="col-lg-3 col-6">
+    <!-- small box -->
+    <div class="small-box bg-warning">
+      <div class="inner">
+        <h3>{{ attendance_present }}</h3>
+
+        <p>Present</p>
+      </div>
+      <div class="icon">
+        <i class="ion ion-stats-bars"></i>
+      </div>
+      <a href="{% url 'student_view_attendance' %}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+    </div>
+  </div>
+  <!-- ./col -->
+  <div class="col-lg-3 col-6">
+    <!-- small box -->
+    <div class="small-box bg-danger">
+      <div class="inner">
+        <h3>{{ subjects }}</h3>
+
+        <p>Total Subjects</p>
+      </div>
+      <div class="icon">
+        <i class="ion ion-pie-graph"></i>
+      </div>
+      <a href="#" class="small-box-footer">&nbsp;</a>
+    </div>
+  </div>
+  <!-- ./col -->
+</div>
+  <div class="row">
+      <div class="col-lg-12">
+        <div class="card">
+        <div class="card-body table-responsive p-0">
+          <table class="table table-hover text-nowrap">
+            <thead>
+              <tr>
+                <th>ID</th>
+                
+                <th>Email</th>
+                
+                
+                <th>Admission Type</th>
+                <th>Admission Status</th>
+                <th>Session Year</th>
+                
+                
+                <th>Course</th>
+                <th>Profile Pic</th>
+                
+                <!-- <th>Action</th> -->
+              </tr>
+            </thead>
+            <tbody>
+            {% for student in students %}
+              <tr>
+                <td>{{ student.admin.id }}</td>
+                
+                <td>{{ student.admin.email }}</td>
+                
+                
+                <td>{{ student.admission_type }}</td>
+                <td>{{ student.admission_status }}</td>
+                
+                <td>{{ student.session_year.session_start_year }} TO {{ student.session_year.session_end_year }}</td>
+                
+                
+                <td>{{ student.course.course_name }}</td>
+                <td><img src="{{ student.profile_pic }}" style="width:100px"/></td>
+                
+                
+              </tr>
+            {% endfor %}
+            </tbody>
+          </table>
+        </div>
+            <!-- /.card -->
+      </div>
+    </div>
+      
+  </div>
+</div>
+
+<br><br>
+<div class="row">
+    <div class="col-md-9">
+        <h5 class="ml-4">All Notices:</h5>
+        
+        <div class="card card-body">
+            <table class="table table-sm">
+                <tr>
+                    <th>Notice</th>
+                    <th>Date</th>
+                </tr>
+                {% for n in notice %}
+                <tr>
+                    <td>{{n.message}} </td>
+                    <td>{{n.date}} </td>
+                </tr>
+                {% endfor %}
+            </table>
+        </div>
+    </div>
+</div>
+
+</section>
+
+<!-- /.content -->
+{% endblock main_content %}
+{% block custom_js %}
+<script>
+  $(document).ready(function(){
+
+          var subjects={{ data_name|safe }};
+          var data1={{ data1 }};
+          var data2={{ data2 }};
+          //Data Set for PIE CHart
+         var pieData  = {
+            labels: [
+                'ABSENT',
+                'PRESENT',
+                'TOTAL'
+            ],
+            datasets: [
+              {
+                data: [{{ attendance_absent }},{{ attendance_present }},{{ total_attendance }}],
+                backgroundColor : ['#f56954', '#00a65a','#ffc107'],
+              }
+            ]
+          }
+
+
+          //Data Set for Bar Chart
+              var areaChartData = {
+                labels  : subjects,
+                datasets: [
+                  {
+                    label               : 'Present in Class',
+                    backgroundColor     : 'rgba(60,141,188,0.9)',
+                    borderColor         : 'rgba(60,141,188,0.8)',
+                    pointRadius          : false,
+                    pointColor          : '#3b8bba',
+                    pointStrokeColor    : 'rgba(60,141,188,1)',
+                    pointHighlightFill  : '#fff',
+                    pointHighlightStroke: 'rgba(60,141,188,1)',
+                    data                : data1
+                  },
+                  {
+                    label               : 'Absent in Class',
+                    backgroundColor     : 'rgba(210, 214, 222, 1)',
+                    borderColor         : 'rgba(210, 214, 222, 1)',
+                    pointRadius         : false,
+                    pointColor          : 'rgba(210, 214, 222, 1)',
+                    pointStrokeColor    : '#c1c7d1',
+                    pointHighlightFill  : '#fff',
+                    pointHighlightStroke: 'rgba(220,220,220,1)',
+                    data                : data2
+                  },
+                ]
+              }
+
+
+          var pieChartCanvas = $('#pieChart').get(0).getContext('2d')
+          var pieOptions     = {
+            maintainAspectRatio : false,
+            responsive : true,
+          }
+          //Create pie or douhnut chart
+          // You can switch between pie and douhnut using the method below.
+          var pieChart = new Chart(pieChartCanvas, {
+            type: 'pie',
+            data: pieData,
+            options: pieOptions
+          });
+
+
+          var barChartCanvas = $('#barChart').get(0).getContext('2d')
+          var barChartData = jQuery.extend(true, {}, areaChartData)
+          var temp1 = areaChartData.datasets[0]
+          barChartData.datasets[0] = temp1
+
+          var barChartOptions = {
+            responsive              : true,
+            maintainAspectRatio     : false,
+            datasetFill             : false
+          }
+
+          var barChart = new Chart(barChartCanvas, {
+            type: 'bar',
+            data: barChartData,
+            options: barChartOptions
+          })
+  })
+</script>
+
+{% endblock custom_js %}
