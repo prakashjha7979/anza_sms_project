@@ -50,6 +50,7 @@ urlpatterns = [
     path('add_student_save', HodViews.add_student_save,name="add_student_save"),
 
     path('ajax/load-states/', HodViews.load_states, name='ajax_load_states'), # AJAX
+    path('ajax/change-states/', views.change_states, name='ajax_change_states'), # AJAX
 
     path('add_subject', HodViews.add_subject,name="add_subject"),
     path('admin_notice', HodViews.admin_notice,name="admin_notice"),

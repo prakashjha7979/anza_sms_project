@@ -9,7 +9,7 @@ Home
     
   <div class="row">
 
-  <div class="col-lg-3 col-6">
+  {% comment %} <div class="col-lg-3 col-6">
     <!-- small box -->
     <div class="small-box bg-info">
       <div class="inner">
@@ -22,9 +22,9 @@ Home
       </div>
       <a href="{% url 'student_view_attendance' %}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
     </div>
-  </div>
+  </div> {% endcomment %}
   <!-- ./col -->
-  <div class="col-lg-3 col-6">
+  {% comment %} <div class="col-lg-3 col-6">
     <!-- small box -->
     <div class="small-box bg-success">
       <div class="inner">
@@ -37,9 +37,9 @@ Home
       </div>
       <a href="{% url 'student_view_attendance' %}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
     </div>
-  </div>
+  </div> {% endcomment %}
   <!-- ./col -->
-  <div class="col-lg-3 col-6">
+  {% comment %} <div class="col-lg-3 col-6">
     <!-- small box -->
     <div class="small-box bg-warning">
       <div class="inner">
@@ -52,9 +52,9 @@ Home
       </div>
       <a href="{% url 'student_view_attendance' %}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
     </div>
-  </div>
+  </div> {% endcomment %}
   <!-- ./col -->
-  <div class="col-lg-3 col-6">
+  {% comment %} <div class="col-lg-3 col-6">
     <!-- small box -->
     <div class="small-box bg-danger">
       <div class="inner">
@@ -67,7 +67,7 @@ Home
       </div>
       <a href="#" class="small-box-footer">&nbsp;</a>
     </div>
-  </div>
+  </div> {% endcomment %}
   <!-- ./col -->
 </div>
   <div class="row">
@@ -124,26 +124,15 @@ Home
 </div>
 
 <br><br>
-<div class="row">
-    <div class="col-md-9">
-        <h5 class="ml-4">All Notices:</h5>
-        
-        <div class="card card-body">
-            <table class="table table-sm">
-                <tr>
-                    <th>Notice</th>
-                    <th>Date</th>
-                </tr>
-                {% for n in notice %}
-                <tr>
-                    <td>{{n.message}} </td>
-                    <td>{{n.date}} </td>
-                </tr>
-                {% endfor %}
-            </table>
-        </div>
-    </div>
+<div class="w3-panel w3-blue ">
+  <h3>Notice Board</h3>
+</div><br>
+{%for n in notice%}
+<div class="alert">
+  <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+  <strong>{{n.date}} ||By :{{n.by}} </strong><br> {{n.message}}
 </div>
+{%endfor%}
 
 </section>
 
@@ -151,7 +140,7 @@ Home
 {% endblock main_content %}
 {% block custom_js %}
 <script>
-  $(document).ready(function(){
+  {% comment %} $(document).ready(function(){
 
           var subjects={{ data_name|safe }};
           var data1={{ data1 }};
@@ -232,7 +221,7 @@ Home
             data: barChartData,
             options: barChartOptions
           })
-  })
+  }) {% endcomment %}
 </script>
 
 {% endblock custom_js %}

@@ -80,6 +80,12 @@ def load_states(request):
     country_id = request.GET.get('country_id')
     states = State.objects.filter(country=country_id)
     return render(request, 'hod_template/state_dropdown_list_options.html', {'states': states})
+
+def change_states(request):
+    # breakpoint()
+    country_id = request.GET.get('country_id')
+    states = State.objects.filter(country=country_id)
+    return render(request, 'state_dropdown.html', {'states': states})
     # return JsonResponse(list(states.values('id', 'name')), safe=False)
 
 
@@ -282,15 +288,17 @@ def add_student_save(request):
         
         if form.is_valid():
             email_exists=True if (CustomUser.objects.filter(email=form.cleaned_data["email"]).exists()) else False
-            username_exists=True if (CustomUser.objects.filter(username=form.cleaned_data["username"]).exists()) else False
-            if not email_exists and not username_exists:
+            # username_exists=True if (CustomUser.objects.filter(username=form.cleaned_data["username"]).exists()) else False
+            if not email_exists:                            
                 first_name=form.cleaned_data["first_name"]
                 last_name=form.cleaned_data["last_name"]
                 username=form.cleaned_data["username"]
                 email=form.cleaned_data["email"]
                 password=form.cleaned_data["password"]
+                prn_number=form.cleaned_data["prn_number"]
                 father_name=form.cleaned_data["father_name"]
                 mother_name=form.cleaned_data["mother_name"]
+                alternate_mobile=form.cleaned_data["alternate_mobile"]
                 date_of_birth=form.cleaned_data["date_of_birth"]
                 
                 admission_type=form.cleaned_data["admission_type"]
@@ -330,9 +338,11 @@ def add_student_save(request):
                 user.students.session_year=session_year_obj
                 user.students.session_joining_month=session_joining_month
                 user.students.gender=gender
+                user.students.prn_number=prn_number
                 user.students.currency_type=currency_type
                 user.students.father_name=father_name
                 user.students.mother_name=mother_name
+                user.students.alternate_mobile=alternate_mobile
                 user.students.date_of_birth=date_of_birth
                 user.students.admission_type=admission_type
                 user.students.admission_status=admission_status
@@ -480,9 +490,11 @@ def edit_student(request,student_id):
     form.fields['profile_pic'].initial=student.profile_pic
     form.fields['course'].initial=student.course.id
     form.fields['gender'].initial=student.gender
+    form.fields['prn_number'].initial=student.prn_number
     form.fields['currency_type'].initial=student.currency_type
     form.fields['father_name'].initial=student.father_name
     form.fields['mother_name'].initial=student.mother_name
+    form.fields['alternate_mobile'].initial=student.alternate_mobile
     form.fields['date_of_birth'].initial=student.date_of_birth
     form.fields['admission_type'].initial=student.admission_type
     form.fields['admission_status'].initial=student.admission_type
@@ -520,8 +532,10 @@ def edit_student_save(request):
             last_name = form.cleaned_data["last_name"]
             username = form.cleaned_data["username"]
             email = form.cleaned_data["email"]
+            prn_number = form.cleaned_data["prn_number"]
             father_name=form.cleaned_data["father_name"]
             mother_name=form.cleaned_data["mother_name"]
+            alternate_mobile=form.cleaned_data["alternate_mobile"]
             date_of_birth=form.cleaned_data["date_of_birth"]
             admission_type=form.cleaned_data["admission_type"]
             admission_status=form.cleaned_data["admission_status"]
@@ -560,6 +574,8 @@ def edit_student_save(request):
                 student=Students.objects.get(admin=student_id)
                 student.father_name=father_name
                 student.mother_name=mother_name
+                student.alternate_mobile=alternate_mobile
+                student.prn_number=prn_number
                 student.date_of_birth=date_of_birth
                 student.admission_type=admission_type
                 student.admission_status=admission_status
@@ -633,6 +649,8 @@ def college_document_save(request):
     seventh_semester_url= None
     eighth_semester_url= None
     other_documents_url= None
+    other_documents_one_url= None
+    other_documents_two_url= None
     
 
     if request.method!="POST":
@@ -683,6 +701,12 @@ def college_document_save(request):
 
         other_documents=request.POST.get("other_documents")
         other_comment=request.POST.get("other_comment")
+
+        other_documents_one=request.POST.get("other_documents_one")
+        other_comment_one=request.POST.get("other_comment_one")
+
+        other_documents_two=request.POST.get("other_documents_two")
+        other_comment_two=request.POST.get("other_comment_two")
         # breakpoint()
         
         try:
@@ -794,6 +818,18 @@ def college_document_save(request):
                 fs=FileSystemStorage()
                 filename=fs.save(other_documents.name,other_documents)
                 other_documents_url=fs.url(filename)
+
+            if request.FILES.get('other_documents_one',False):
+                other_documents_one=request.FILES['other_documents_one']
+                fs=FileSystemStorage()
+                filename=fs.save(other_documents_one.name,other_documents_one)
+                other_documents_one_url=fs.url(filename)
+
+            if request.FILES.get('other_documents_two',False):
+                other_documents_two=request.FILES['other_documents_two']
+                fs=FileSystemStorage()
+                filename=fs.save(other_documents_two.name,other_documents_two)
+                other_documents_two_url=fs.url(filename)
             
 
             # breakpoint()
@@ -896,9 +932,19 @@ def college_document_save(request):
                     clg_document.other_comment=other_comment
                     clg_document.save()
 
+                if other_documents_one_url!=None:
+                    clg_document.other_documents_one=other_documents_one_url
+                    clg_document.other_comment_one=other_comment_one
+                    clg_document.save()
+
+                if other_documents_two_url!=None:
+                    clg_document.other_documents_two=other_documents_two_url
+                    clg_document.other_comment_two=other_comment_two
+                    clg_document.save()
+
             else:
                 # breakpoint()
-                CollegeDocument.objects.create(student_id=student,admission_letter=admission_letter_url,admission_comment=admission_comment,first_installment=first_installment_url,one_comment=one_comment,second_installment=second_installment_url,two_comment=two_comment,third_installment=third_installment_url,three_comment=three_comment,fourth_installment=fourth_installment_url,four_comment=four_comment,fifth_installment=fifth_installment_url,five_comment=five_comment,sixth_installment=sixth_installment_url,six_comment=six_comment,seventh_installment=seventh_installment_url,seven_comment=seven_comment,eighth_installment=eighth_installment_url,eight_comment=eight_comment,first_semester=first_semester_url,first_comment=first_comment,second_semester=second_semester_url,second_comment=second_comment,third_semester=third_semester_url,third_comment=third_comment,fourth_semester=fourth_semester_url,fourth_comment=fourth_comment,fifth_semester=fifth_semester_url,fifth_comment=fifth_comment,sixth_semester=sixth_semester_url,sixth_comment=sixth_comment,seventh_semester=seventh_semester_url,seventh_comment=seventh_comment,eighth_semester=eighth_semester_url,eighth_comment=eighth_comment,other_documents=other_documents_url,other_comment=other_comment)
+                CollegeDocument.objects.create(student_id=student,admission_letter=admission_letter_url,admission_comment=admission_comment,first_installment=first_installment_url,one_comment=one_comment,second_installment=second_installment_url,two_comment=two_comment,third_installment=third_installment_url,three_comment=three_comment,fourth_installment=fourth_installment_url,four_comment=four_comment,fifth_installment=fifth_installment_url,five_comment=five_comment,sixth_installment=sixth_installment_url,six_comment=six_comment,seventh_installment=seventh_installment_url,seven_comment=seven_comment,eighth_installment=eighth_installment_url,eight_comment=eight_comment,first_semester=first_semester_url,first_comment=first_comment,second_semester=second_semester_url,second_comment=second_comment,third_semester=third_semester_url,third_comment=third_comment,fourth_semester=fourth_semester_url,fourth_comment=fourth_comment,fifth_semester=fifth_semester_url,fifth_comment=fifth_comment,sixth_semester=sixth_semester_url,sixth_comment=sixth_comment,seventh_semester=seventh_semester_url,seventh_comment=seventh_comment,eighth_semester=eighth_semester_url,eighth_comment=eighth_comment,other_documents=other_documents_url,other_comment=other_comment,other_documents_one=other_documents_one_url,other_comment_one=other_comment_one,other_documents_two=other_documents_two_url,other_comment_two=other_comment_two)
 
             # breakpoint()
             messages.success(request, "Successfully Uploaded document")
@@ -940,19 +986,19 @@ def hod_document_save(request):
     pg_certificate_url= None
     diploma_marksheet_url= None
     diploma_certificate_url= None
-    cc_url = None
-    tc_url = None
+    
     migration_url = None
     gap_url = None
-    medical_url = None
+    
     residence_url = None
     pan_card_url = None
     aadhar_card_url = None
     affidavit_url = None
-    fee_commitment_url = None
-    checklist_url = None
-    anti_ragging_url = None
-    other_url = None
+    
+    
+    other_doc_one_url = None
+    other_doc_two_url = None
+    other_doc_three_url = None
     photo_url = None
     signature_url = None
 
@@ -969,19 +1015,21 @@ def hod_document_save(request):
         pg_certificate=request.POST.get("pg_certificate")
         diploma_marksheet=request.POST.get("diploma_marksheet")
         diploma_certificate=request.POST.get("diploma_certificate")
-        cc=request.POST.get("cc")
-        tc=request.POST.get("tc")
+        
         migration=request.POST.get("migration")
         gap=request.POST.get("gap")
-        medical=request.POST.get("medical")
+       
         residence=request.POST.get("residence")
         pan_card=request.POST.get("pan_card")
         aadhar_card=request.POST.get("aadhar_card")
         affidavit=request.POST.get("affidavit")
-        fee_commitment=request.POST.get("fee_commitment")
-        checklist=request.POST.get("checklist")
-        anti_ragging=request.POST.get("anti_ragging")
-        other=request.POST.get("other")
+        
+        other_doc_one=request.POST.get("other_doc_one")
+        other_one_comment=request.POST.get("other_one_comment")
+        other_doc_two=request.POST.get("other_doc_two")
+        other_two_comment=request.POST.get("other_two_comment")
+        other_doc_three=request.POST.get("other_doc_three")
+        other_three_comment=request.POST.get("other_three_comment")
         photo=request.POST.get("photo")
         signature=request.POST.get("signature")
         # breakpoint()
@@ -1047,17 +1095,17 @@ def hod_document_save(request):
                 filename=fs.save(diploma_certificate.name,diploma_certificate)
                 diploma_certificate_url=fs.url(filename)
 
-            if request.FILES.get('cc',False):
-                cc=request.FILES['cc']
-                fs=FileSystemStorage()
-                filename=fs.save(cc.name,cc)
-                cc_url=fs.url(filename)
+            # if request.FILES.get('cc',False):
+            #     cc=request.FILES['cc']
+            #     fs=FileSystemStorage()
+            #     filename=fs.save(cc.name,cc)
+            #     cc_url=fs.url(filename)
 
-            if request.FILES.get('tc',False):
-                tc=request.FILES['tc']
-                fs=FileSystemStorage()
-                filename=fs.save(tc.name,tc)
-                tc_url=fs.url(filename)
+            # if request.FILES.get('tc',False):
+            #     tc=request.FILES['tc']
+            #     fs=FileSystemStorage()
+            #     filename=fs.save(tc.name,tc)
+            #     tc_url=fs.url(filename)
 
             if request.FILES.get('migration',False):
                 migration=request.FILES['migration']
@@ -1071,11 +1119,11 @@ def hod_document_save(request):
                 filename=fs.save(gap.name,gap)
                 gap_url=fs.url(filename)
 
-            if request.FILES.get('medical',False):
-                medical=request.FILES['medical']
-                fs=FileSystemStorage()
-                filename=fs.save(medical.name,medical)
-                medical_url=fs.url(filename)
+            # if request.FILES.get('medical',False):
+            #     medical=request.FILES['medical']
+            #     fs=FileSystemStorage()
+            #     filename=fs.save(medical.name,medical)
+            #     medical_url=fs.url(filename)
 
             
 
@@ -1105,29 +1153,41 @@ def hod_document_save(request):
                 filename=fs.save(affidavit.name,affidavit)
                 affidavit_url=fs.url(filename)
 
-            if request.FILES.get('fee_commitment',False):
-                fee_commitment=request.FILES['fee_commitment']
-                fs=FileSystemStorage()
-                filename=fs.save(fee_commitment.name,fee_commitment)
-                fee_commitment_url=fs.url(filename)
+            # if request.FILES.get('fee_commitment',False):
+            #     fee_commitment=request.FILES['fee_commitment']
+            #     fs=FileSystemStorage()
+            #     filename=fs.save(fee_commitment.name,fee_commitment)
+            #     fee_commitment_url=fs.url(filename)
 
-            if request.FILES.get('checklist',False):
-                checklist=request.FILES['checklist']
-                fs=FileSystemStorage()
-                filename=fs.save(checklist.name,checklist)
-                checklist_url=fs.url(filename)
+            # if request.FILES.get('checklist',False):
+            #     checklist=request.FILES['checklist']
+            #     fs=FileSystemStorage()
+            #     filename=fs.save(checklist.name,checklist)
+            #     checklist_url=fs.url(filename)
 
-            if request.FILES.get('anti_ragging',False):
-                anti_ragging=request.FILES['anti_ragging']
-                fs=FileSystemStorage()
-                filename=fs.save(anti_ragging.name,anti_ragging)
-                anti_ragging_url=fs.url(filename)
+            # if request.FILES.get('anti_ragging',False):
+            #     anti_ragging=request.FILES['anti_ragging']
+            #     fs=FileSystemStorage()
+            #     filename=fs.save(anti_ragging.name,anti_ragging)
+            #     anti_ragging_url=fs.url(filename)
 
-            if request.FILES.get('other',False):
-                other=request.FILES['other']
+            if request.FILES.get('other_doc_one',False):
+                other_doc_one=request.FILES['other_doc_one']
                 fs=FileSystemStorage()
-                filename=fs.save(other.name,other)
-                other_url=fs.url(filename)
+                filename=fs.save(other_doc_one.name,other_doc_one)
+                other_doc_one_url=fs.url(filename)
+
+            if request.FILES.get('other_doc_two',False):
+                other_doc_two=request.FILES['other_doc_two']
+                fs=FileSystemStorage()
+                filename=fs.save(other_doc_two.name,other_doc_two)
+                other_doc_two_url=fs.url(filename)
+
+            if request.FILES.get('other_doc_three',False):
+                other_doc_three=request.FILES['other_doc_three']
+                fs=FileSystemStorage()
+                filename=fs.save(other_doc_three.name,other_doc_three)
+                other_doc_three_url=fs.url(filename)
 
             if request.FILES.get('photo',False):
                 photo=request.FILES['photo']
@@ -1189,14 +1249,14 @@ def hod_document_save(request):
                     stud_document.diploma_certificate=diploma_certificate_url
                     stud_document.save()
 
-                if cc_url!=None:
-                    stud_document.cc=cc_url
-                    stud_document.save()
+                # if cc_url!=None:
+                #     stud_document.cc=cc_url
+                #     stud_document.save()
 
                 
-                if tc_url!=None:
-                    stud_document.tc=tc_url
-                    stud_document.save()
+                # if tc_url!=None:
+                #     stud_document.tc=tc_url
+                #     stud_document.save()
 
                 if migration_url!=None:
                     stud_document.migration=migration_url
@@ -1206,9 +1266,9 @@ def hod_document_save(request):
                     stud_document.gap=gap_url
                     stud_document.save()
 
-                if medical_url!=None:
-                    stud_document.medical=medical_url
-                    stud_document.save()
+                # if medical_url!=None:
+                #     stud_document.medical=medical_url
+                #     stud_document.save()
 
 
                 if residence_url!=None:
@@ -1227,20 +1287,31 @@ def hod_document_save(request):
                     stud_document.affidavit=affidavit_url
                     stud_document.save()
 
-                if fee_commitment!=None:
-                    stud_document.fee_commitment=fee_commitment_url
+                # if fee_commitment!=None:
+                #     stud_document.fee_commitment=fee_commitment_url
+                #     stud_document.save()
+
+                # if checklist!=None:
+                #     stud_document.checklist=checklist_url
+                #     stud_document.save()
+
+                # if anti_ragging!=None:
+                #     stud_document.anti_ragging=anti_ragging_url
+                #     stud_document.save()
+
+                if other_doc_one_url!=None:
+                    stud_document.other_doc_one=other_doc_one_url
+                    stud_document.other_one_comment=other_one_comment
                     stud_document.save()
 
-                if checklist!=None:
-                    stud_document.checklist=checklist_url
+                if other_doc_two_url!=None:
+                    stud_document.other_doc_two=other_doc_two_url
+                    stud_document.other_two_comment=other_two_comment
                     stud_document.save()
 
-                if anti_ragging!=None:
-                    stud_document.anti_ragging=anti_ragging_url
-                    stud_document.save()
-
-                if other!=None:
-                    stud_document.other=other_url
+                if other_doc_three_url!=None:
+                    stud_document.other_doc_three=other_doc_three_url
+                    stud_document.other_three_comment=other_three_comment
                     stud_document.save()
 
                 if photo!=None:
@@ -1252,7 +1323,7 @@ def hod_document_save(request):
                     stud_document.save()
 
             else:
-                StudentDocument.objects.create(student_id=student,hsc_marksheet=hsc_marksheet_url,hsc_certificate=hsc_certificate_url,ssc_marksheet=ssc_marksheet_url,ssc_certificate=ssc_certificate_url,ug_marksheet=ug_marksheet_url,ug_certificate=ug_certificate_url,pg_marksheet=pg_marksheet_url,pg_certificate=pg_certificate_url,diploma_marksheet=diploma_marksheet_url,diploma_certificate=diploma_certificate_url,cc=cc_url,tc=tc_url,migration=migration_url,gap=gap_url,medical=medical_url,residence=residence_url,pan_card=pan_card_url,aadhar_card=aadhar_card_url,affidavit=affidavit_url,fee_commitment=fee_commitment_url,checklist=checklist_url,anti_ragging=anti_ragging_url,other=other_url,photo=photo_url,signature=signature_url)
+                StudentDocument.objects.create(student_id=student,hsc_marksheet=hsc_marksheet_url,hsc_certificate=hsc_certificate_url,ssc_marksheet=ssc_marksheet_url,ssc_certificate=ssc_certificate_url,ug_marksheet=ug_marksheet_url,ug_certificate=ug_certificate_url,pg_marksheet=pg_marksheet_url,pg_certificate=pg_certificate_url,diploma_marksheet=diploma_marksheet_url,diploma_certificate=diploma_certificate_url,migration=migration_url,gap=gap_url,residence=residence_url,pan_card=pan_card_url,aadhar_card=aadhar_card_url,affidavit=affidavit_url,other_doc_one=other_doc_one_url,other_one_comment=other_one_comment,other_doc_two=other_doc_two_url,other_two_comment=other_two_comment,other_doc_three=other_doc_three_url,other_three_comment=other_three_comment,photo=photo_url,signature=signature_url)
 
             messages.success(request, "Successfully Uploaded document")
             return HttpResponseRedirect(reverse("hod_document",kwargs={"student_id":student_id}))            

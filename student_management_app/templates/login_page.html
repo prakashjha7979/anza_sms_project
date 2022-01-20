@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Student Management System | Log in</title>
+  <title>IREF Digital Campus | Log in</title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -33,12 +33,12 @@
 <body class="hold-transition login-page" >
 <div class="login-box">
   <div class="login-logo">
-    <a href="#"><b>Student</b> <h2> Management System </h2></a>
+    <a href="#"><b>IREF</b> <h2> Digital Campus </h2></a>
   </div>
   <!-- /.login-logo -->
   <div class="card">
     <div class="card-body login-card-body">
-      <p class="login-box-msg">Sign in to Student Management System</p>
+      <p class="login-box-msg">Student Sign in to IREF Digital Campus</p>
 
       <form action="/doLogin" method="post">
           {% csrf_token %}
@@ -66,12 +66,12 @@
           <div class="col-12 text-center">
             <a href="{% url 'reset_password' %}">Reset Password</a>
          </div>
-         <div class="col-12 text-center">
+         <!-- <div class="col-12 text-center">
           <a href="{% url 'signup_admin' %}">ADMIN SIGNUP</a>
-       </div><!-- /.col -->
-       <!-- <div class="col-12 text-center">
+       </div>/.col -->
+       <div class="col-12 text-center">
         <a href="{% url 'signup_student' %}">STUDENT SIGNUP</a>
-     </div>/.col -->
+     </div>
        <!-- <div class="col-12 text-center">
         <a href="{% url 'signup_staff' %}">Staff Signup FOR TESTING</a>
      </div>/.col -->

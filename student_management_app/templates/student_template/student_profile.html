@@ -18,13 +18,17 @@ Edit Profile
               <form role="form" action="{% url 'student_profile_save' %}" method="post">
                   {% csrf_token %}
                 <div class="card-body">
-                  <div class="form-group">
+                  <!-- <div class="form-group">
                     <label>Username</label>
                     <input type="text" class="form-control" name="username" value="{{ user.username }}" disabled="disabled">
-                  </div>
+                  </div> -->
                   <div class="form-group">
                     <label>Email</label>
                     <input type="email" class="form-control" name="email" value="{{ user.email }}" disabled="disabled">
+                  </div>
+                  <div class="form-group">
+                    <label>PRN(Permanent Registration Number)</label>
+                    <input type="number" class="form-control" name="prn_number" value="{{ student.prn_number }}" disabled="disabled">
                   </div>
                    <div class="form-group">
                     <label>First Name</label>
@@ -33,6 +37,26 @@ Edit Profile
                   <div class="form-group">
                     <label>Last Name</label>
                     <input type="text" class="form-control" name="last_name" value="{{ user.last_name }}" disabled="disabled">
+                  </div>
+                  <div class="form-group">
+                    <label>Date of birth</label>
+                    <input type="text" class="form-control" name="last_name" value="{{ student.date_of_birth }}" disabled="disabled">
+                  </div>
+                  <div class="form-group">
+                    <label>Father Name</label>
+                    <input type="text" class="form-control" name="father_name" value="{{ student.father_name }}" disabled="disabled">
+                  </div>
+                  <div class="form-group">
+                    <label>Mother Name</label>
+                    <input type="text" class="form-control" name="mother_name" value="{{ student.mother_name }}" disabled="disabled">
+                  </div>
+                  <div class="form-group">
+                    <label>Admission Type</label>
+                    <input type="text" class="form-control" name="admission_type" value="{{ student.admission_type }}" disabled="disabled">
+                  </div>
+                  <div class="form-group">
+                    <label>Admission Status</label>
+                    <input type="text" class="form-control" name="admission_status" value="{{ student.admission_status }}" disabled="disabled">
                   </div>
                    <div class="form-group">
                     <label>Permanent address</label>
@@ -45,6 +69,50 @@ Edit Profile
                   <div class="form-group">
                     <label>Mobile</label>
                     <input type="number" class="form-control" name="mobile" value="{{ student.mobile }}">
+                  </div>
+                  <div class="form-group">
+                    <label>Alternate\Guardian Mobile</label>
+                    <input type="number" class="form-control" name="alternate_mobile" value="{{ student.alternate_mobile }}">
+                  </div>
+                  <div class="form-group">
+                    <label>Country</label>
+                    <input type="text" class="form-control" name="country" value="{{ student.country }}" disabled="disabled">
+                  </div>
+                  <div class="form-group">
+                    <label>state</label>
+                    <input type="text" class="form-control" name="state" value="{{ student.state }}" disabled="disabled">
+                  </div>
+                  <div class="form-group">
+                    <label>Session Year</label>
+                    <input type="text" class="form-control" name="session_year" value="{{ student.session_year.session_start_year }} - {{ student.session_year.session_end_year }}" disabled="disabled">
+                  </div>
+                  <div class="form-group">
+                    <label>Session Joining Month</label>
+                    <input type="text" class="form-control" name="session_joining_month" value="{{ student.session_joining_month }}" disabled="disabled">
+                  </div>
+                  <div class="form-group">
+                    <label>Highest Qualification</label>
+                    <input type="text" class="form-control" name="highest_qualification" value="{{ student.highest_qualification }}" disabled="disabled">
+                  </div>
+                  <div class="form-group">
+                    <label>course</label>
+                    <input type="text" class="form-control" name="course" value="{{ student.course.course_name }}" disabled="disabled">
+                  </div>
+                  <div class="form-group">
+                    <label>Gender</label>
+                    <input type="text" class="form-control" name="gender" value="{{ student.gender }}" disabled="disabled">
+                  </div>
+                  <div class="form-group">
+                    <label>Currency Type</label>
+                    <input type="text" class="form-control" name="currency_type" value="{{ student.currency_type }}" disabled="disabled">
+                  </div>
+                  <div class="form-group">
+                    <label>Final Fees</label>
+                    <input type="number" class="form-control" name="final_fees" value="{{ student.final_fees }}" disabled="disabled">
+                  </div>
+                  <div class="form-group">
+                    <label>Other Information</label>
+                    <input type="text" class="form-control" name="other_information" value="{{ student.other_information }}" disabled="disabled">
                   </div>
                    <div class="form-group">
                     <label>Change Password?</label>

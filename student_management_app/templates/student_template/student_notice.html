@@ -30,20 +30,15 @@ INSTITUTE NOTICES
             <div class="col-md-9">
                 <h5>All Notices:</h5>
                 
-                <div class="card card-body">
-                    <table class="table table-sm">
-                        <tr>
-                            <th>Notice</th>
-                            <th>Date</th>
-                        </tr>
-                        {% for n in notice %}
-                        <tr>
-                            <td>{{n.message}} </td>
-                            <td>{{n.date}} </td>
-                        </tr>
-                        {% endfor %}
-                    </table>
+                <div class="w3-panel w3-blue ">
+                  <h3>Notice Board</h3>
+                </div><br>
+                {%for n in notice%}
+                <div class="alert">
+                  <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+                  <strong>{{n.date}} ||By :{{n.by}} </strong><br> {{n.message}}
                 </div>
+                {%endfor%}
             </div>
         </div>
          

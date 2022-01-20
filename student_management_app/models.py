@@ -76,6 +76,7 @@ class Students(models.Model):
         RUPEES ='INR'
     id=models.AutoField(primary_key=True)
     admin=models.OneToOneField(CustomUser,on_delete=models.CASCADE)
+    prn_number=models.CharField(max_length=255)
     gender=models.CharField(max_length=255)
     father_name=models.CharField(max_length=255)
     mother_name=models.CharField(max_length=255)
@@ -84,6 +85,7 @@ class Students(models.Model):
     admission_status=models.CharField(max_length=255)
     session_year=models.ForeignKey(SessionYearModel,on_delete=models.CASCADE)
     mobile=models.CharField(max_length=255)
+    alternate_mobile=models.CharField(max_length=255)
     permanent_address=models.TextField()
     communication_address=models.TextField()
     session_joining_month=models.CharField(max_length=255)
@@ -113,7 +115,6 @@ class StudentDocument(models.Model):
     pg_certificate=models.FileField()
     diploma_marksheet=models.FileField()
     diploma_certificate=models.FileField()
-    cc=models.FileField()
     tc=models.FileField()
     migration=models.FileField()
     gap=models.FileField()
@@ -127,7 +128,12 @@ class StudentDocument(models.Model):
     fee_commitment=models.FileField()
     checklist=models.FileField()
     anti_ragging=models.FileField()
-    other=models.FileField()
+    other_doc_one=models.FileField()
+    other_one_comment=models.CharField(max_length=255)
+    other_doc_two=models.FileField()
+    other_two_comment=models.CharField(max_length=255)
+    other_doc_three=models.FileField()
+    other_three_comment=models.CharField(max_length=255)
     photo=models.FileField()
     signature=models.FileField()
     created_at=models.DateTimeField(auto_now_add=True)
@@ -258,6 +264,11 @@ class CollegeDocument(models.Model):
     eighth_comment=models.CharField(max_length=255)
     other_documents=models.FileField()
     other_comment=models.CharField(max_length=255)
+    other_documents_one=models.FileField()
+    other_comment_one=models.CharField(max_length=255)
+    other_documents_two=models.FileField()
+    other_comment_two=models.CharField(max_length=255)
+
     created_at=models.DateTimeField(auto_now_add=True)
     updated_at=models.DateTimeField(auto_now_add=True)
     objects=models.Manager()
@@ -290,7 +301,7 @@ def create_user_profile(sender,instance,created,**kwargs):
         if instance.user_type==2:
             Staffs.objects.create(admin=instance,address="")
         if instance.user_type==3:
-            Students.objects.create(admin=instance,course=Courses.objects.get(id=1),session_year=SessionYearModel.object.get(id=1),country=Country.objects.get(id=1),state=State.objects.get(id=1),permanent_address="",communication_address="",mobile="",highest_qualification="",profile_pic="",gender="",father_name="",mother_name="",date_of_birth="2020-01-01",session_joining_month="",final_fees="",other_information="",admission_type="",admission_status="",currency_type="")
+            Students.objects.create(admin=instance,course=Courses.objects.get(id=1),session_year=SessionYearModel.object.get(id=1),country=Country.objects.get(id=1),state=State.objects.get(id=1),permanent_address="",communication_address="",mobile="",highest_qualification="",profile_pic="",gender="",father_name="",mother_name="",date_of_birth="2020-01-01",session_joining_month="",final_fees="",other_information="",admission_type="",admission_status="",currency_type="",prn_number="",alternate_mobile="")
 
 @receiver(post_save,sender=CustomUser)
 def save_user_profile(sender,instance,**kwargs):

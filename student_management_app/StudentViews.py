@@ -208,22 +208,19 @@ def student_document_save(request):
     pg_certificate_url= None
     diploma_marksheet_url= None
     diploma_certificate_url= None
-    cc_url = None
-    caste_url = None
-    tc_url = None
+    
     migration_url = None
     gap_url = None
-    medical_url = None
-    income_url = None
+    
     residence_url = None
     pan_card_url = None
     aadhar_card_url = None
-    sk_form_url = None
+    
     affidavit_url = None
-    fee_commitment_url = None
-    checklist_url = None
-    anti_ragging_url = None
-    other_url = None
+    
+    other_doc_one_url = None
+    other_doc_two_url = None
+    other_doc_three_url = None
     photo_url = None
     signature_url = None
 
@@ -240,22 +237,23 @@ def student_document_save(request):
         pg_certificate=request.POST.get("pg_certificate")
         diploma_marksheet=request.POST.get("diploma_marksheet")
         diploma_certificate=request.POST.get("diploma_certificate")
-        cc=request.POST.get("cc")
-        caste=request.POST.get("caste")
-        tc=request.POST.get("tc")
+        
         migration=request.POST.get("migration")
         gap=request.POST.get("gap")
-        medical=request.POST.get("medical")
-        income=request.POST.get("income")
         residence=request.POST.get("residence")
         pan_card=request.POST.get("pan_card")
         aadhar_card=request.POST.get("aadhar_card")
-        sk_form=request.POST.get("sk_form")
         affidavit=request.POST.get("affidavit")
-        fee_commitment=request.POST.get("fee_commitment")
-        checklist=request.POST.get("checklist")
-        anti_ragging=request.POST.get("anti_ragging")
-        other=request.POST.get("other")
+
+        other_doc_one=request.POST.get("other_doc_one")
+        # other_one_comment=request.POST.get("other_one_comment")
+
+        other_doc_two=request.POST.get("other_doc_two")
+        # other_two_comment=request.POST.get("other_two_comment")
+
+        other_doc_three=request.POST.get("other_doc_three")
+        # other_three_comment=request.POST.get("other_three_comment")
+
         photo=request.POST.get("photo")
         signature=request.POST.get("signature")
         # breakpoint()
@@ -321,23 +319,23 @@ def student_document_save(request):
                 filename=fs.save(diploma_certificate.name,diploma_certificate)
                 diploma_certificate_url=fs.url(filename)
 
-            if request.FILES.get('cc',False):
-                cc=request.FILES['cc']
-                fs=FileSystemStorage()
-                filename=fs.save(cc.name,cc)
-                cc_url=fs.url(filename)
+            # if request.FILES.get('cc',False):
+            #     cc=request.FILES['cc']
+            #     fs=FileSystemStorage()
+            #     filename=fs.save(cc.name,cc)
+            #     cc_url=fs.url(filename)
 
-            if request.FILES.get('caste',False):
-                caste=request.FILES['caste']
-                fs=FileSystemStorage()
-                filename=fs.save(caste.name,caste)
-                caste_url=fs.url(filename)
+            # if request.FILES.get('caste',False):
+            #     caste=request.FILES['caste']
+            #     fs=FileSystemStorage()
+            #     filename=fs.save(caste.name,caste)
+            #     caste_url=fs.url(filename)
 
-            if request.FILES.get('tc',False):
-                tc=request.FILES['tc']
-                fs=FileSystemStorage()
-                filename=fs.save(tc.name,tc)
-                tc_url=fs.url(filename)
+            # if request.FILES.get('tc',False):
+            #     tc=request.FILES['tc']
+            #     fs=FileSystemStorage()
+            #     filename=fs.save(tc.name,tc)
+            #     tc_url=fs.url(filename)
 
             if request.FILES.get('migration',False):
                 migration=request.FILES['migration']
@@ -351,17 +349,17 @@ def student_document_save(request):
                 filename=fs.save(gap.name,gap)
                 gap_url=fs.url(filename)
 
-            if request.FILES.get('medical',False):
-                medical=request.FILES['medical']
-                fs=FileSystemStorage()
-                filename=fs.save(medical.name,medical)
-                medical_url=fs.url(filename)
+            # if request.FILES.get('medical',False):
+            #     medical=request.FILES['medical']
+            #     fs=FileSystemStorage()
+            #     filename=fs.save(medical.name,medical)
+            #     medical_url=fs.url(filename)
 
-            if request.FILES.get('income',False):
-                income=request.FILES['income']
-                fs=FileSystemStorage()
-                filename=fs.save(income.name,income)
-                income_url=fs.url(filename)
+            # if request.FILES.get('income',False):
+            #     income=request.FILES['income']
+            #     fs=FileSystemStorage()
+            #     filename=fs.save(income.name,income)
+            #     income_url=fs.url(filename)
 
             if request.FILES.get('residence',False):
                 residence=request.FILES['residence']
@@ -381,11 +379,11 @@ def student_document_save(request):
                 filename=fs.save(aadhar_card.name,aadhar_card)
                 aadhar_card_url=fs.url(filename)
 
-            if request.FILES.get('sk_form',False):
-                sk_form=request.FILES['sk_form']
-                fs=FileSystemStorage()
-                filename=fs.save(sk_form.name,sk_form)
-                sk_form_url=fs.url(filename)
+            # if request.FILES.get('sk_form',False):
+            #     sk_form=request.FILES['sk_form']
+            #     fs=FileSystemStorage()
+            #     filename=fs.save(sk_form.name,sk_form)
+            #     sk_form_url=fs.url(filename)
 
             if request.FILES.get('affidavit',False):
                 affidavit=request.FILES['affidavit']
@@ -393,29 +391,42 @@ def student_document_save(request):
                 filename=fs.save(affidavit.name,affidavit)
                 affidavit_url=fs.url(filename)
 
-            if request.FILES.get('fee_commitment',False):
-                fee_commitment=request.FILES['fee_commitment']
-                fs=FileSystemStorage()
-                filename=fs.save(fee_commitment.name,fee_commitment)
-                fee_commitment_url=fs.url(filename)
+            # if request.FILES.get('fee_commitment',False):
+            #     fee_commitment=request.FILES['fee_commitment']
+            #     fs=FileSystemStorage()
+            #     filename=fs.save(fee_commitment.name,fee_commitment)
+            #     fee_commitment_url=fs.url(filename)
 
-            if request.FILES.get('checklist',False):
-                checklist=request.FILES['checklist']
-                fs=FileSystemStorage()
-                filename=fs.save(checklist.name,checklist)
-                checklist_url=fs.url(filename)
+            # if request.FILES.get('checklist',False):
+            #     checklist=request.FILES['checklist']
+            #     fs=FileSystemStorage()
+            #     filename=fs.save(checklist.name,checklist)
+            #     checklist_url=fs.url(filename)
 
-            if request.FILES.get('anti_ragging',False):
-                anti_ragging=request.FILES['anti_ragging']
-                fs=FileSystemStorage()
-                filename=fs.save(anti_ragging.name,anti_ragging)
-                anti_ragging_url=fs.url(filename)
+            # if request.FILES.get('anti_ragging',False):
+            #     anti_ragging=request.FILES['anti_ragging']
+            #     fs=FileSystemStorage()
+            #     filename=fs.save(anti_ragging.name,anti_ragging)
+            #     anti_ragging_url=fs.url(filename)
 
-            if request.FILES.get('other',False):
-                other=request.FILES['other']
+            if request.FILES.get('other_doc_one',False):
+                other_doc_one=request.FILES['other_doc_one']
                 fs=FileSystemStorage()
-                filename=fs.save(other.name,other)
-                other_url=fs.url(filename)
+                filename=fs.save(other_doc_one.name,other_doc_one)
+                other_doc_one_url=fs.url(filename)
+
+            if request.FILES.get('other_doc_two',False):
+                other_doc_two=request.FILES['other_doc_two']
+                fs=FileSystemStorage()
+                filename=fs.save(other_doc_two.name,other_doc_two)
+                other_doc_two_url=fs.url(filename)
+
+            if request.FILES.get('other_doc_three',False):
+                other_doc_three=request.FILES['other_doc_three']
+                fs=FileSystemStorage()
+                filename=fs.save(other_doc_three.name,other_doc_three)
+                other_doc_three_url=fs.url(filename)
+
 
             if request.FILES.get('photo',False):
                 photo=request.FILES['photo']
@@ -477,17 +488,17 @@ def student_document_save(request):
                     stud_document.diploma_certificate=diploma_certificate_url
                     stud_document.save()
 
-                if cc_url!=None:
-                    stud_document.cc=cc_url
-                    stud_document.save()
+                # if cc_url!=None:
+                #     stud_document.cc=cc_url
+                #     stud_document.save()
 
-                if caste_url!=None:
-                    stud_document.caste=caste_url
-                    stud_document.save()
+                # if caste_url!=None:
+                #     stud_document.caste=caste_url
+                #     stud_document.save()
 
-                if tc_url!=None:
-                    stud_document.tc=tc_url
-                    stud_document.save()
+                # if tc_url!=None:
+                #     stud_document.tc=tc_url
+                #     stud_document.save()
 
                 if migration_url!=None:
                     stud_document.migration=migration_url
@@ -497,13 +508,13 @@ def student_document_save(request):
                     stud_document.gap=gap_url
                     stud_document.save()
 
-                if medical_url!=None:
-                    stud_document.medical=medical_url
-                    stud_document.save()
+                # if medical_url!=None:
+                #     stud_document.medical=medical_url
+                #     stud_document.save()
 
-                if income_url!=None:
-                    stud_document.income=income_url
-                    stud_document.save()
+                # if income_url!=None:
+                #     stud_document.income=income_url
+                #     stud_document.save()
 
                 if residence_url!=None:
                     stud_document.residence=residence_url
@@ -517,28 +528,39 @@ def student_document_save(request):
                     stud_document.aadhar_card=aadhar_card_url
                     stud_document.save()
 
-                if sk_form!=None:
-                    stud_document.sk_form=sk_form_url
-                    stud_document.save()
+                # if sk_form!=None:
+                #     stud_document.sk_form=sk_form_url
+                #     stud_document.save()
 
                 if affidavit!=None:
                     stud_document.affidavit=affidavit_url
                     stud_document.save()
 
-                if fee_commitment!=None:
-                    stud_document.fee_commitment=fee_commitment_url
+                # if fee_commitment!=None:
+                #     stud_document.fee_commitment=fee_commitment_url
+                #     stud_document.save()
+
+                # if checklist!=None:
+                #     stud_document.checklist=checklist_url
+                #     stud_document.save()
+
+                # if anti_ragging!=None:
+                #     stud_document.anti_ragging=anti_ragging_url
+                #     stud_document.save()
+
+                if other_doc_one_url!=None:
+                    stud_document.other_doc_one=other_doc_one_url
+                    # stud_document.other_one_comment=other_one_comment
                     stud_document.save()
 
-                if checklist!=None:
-                    stud_document.checklist=checklist_url
+                if other_doc_two_url!=None:
+                    stud_document.other_doc_two=other_doc_two_url
+                    # stud_document.other_two_comment=other_two_comment
                     stud_document.save()
 
-                if anti_ragging!=None:
-                    stud_document.anti_ragging=anti_ragging_url
-                    stud_document.save()
-
-                if other!=None:
-                    stud_document.other=other_url
+                if other_doc_three_url!=None:
+                    stud_document.other_doc_three=other_doc_three_url
+                    # stud_document.other_three_comment=other_three_comment
                     stud_document.save()
 
                 if photo!=None:
@@ -550,7 +572,7 @@ def student_document_save(request):
                     stud_document.save()
 
             else:
-                StudentDocument.objects.create(student_id_id=student,hsc_marksheet=hsc_marksheet_url,hsc_certificate=hsc_certificate_url,ssc_marksheet=ssc_marksheet_url,ssc_certificate=ssc_certificate_url,ug_marksheet=ug_marksheet_url,ug_certificate=ug_certificate_url,pg_marksheet=pg_marksheet_url,pg_certificate=pg_certificate_url,diploma_marksheet=diploma_marksheet_url,diploma_certificate=diploma_certificate_url,cc=cc_url,caste=caste_url,tc=tc_url,migration=migration_url,gap=gap_url,medical=medical_url,income=income_url,residence=residence_url,pan_card=pan_card_url,aadhar_card=aadhar_card_url,sk_form=sk_form_url,affidavit=affidavit_url,fee_commitment=fee_commitment_url,checklist=checklist_url,anti_ragging=anti_ragging_url,other=other_url,photo=photo_url,signature=signature_url)
+                StudentDocument.objects.create(student_id_id=student,hsc_marksheet=hsc_marksheet_url,hsc_certificate=hsc_certificate_url,ssc_marksheet=ssc_marksheet_url,ssc_certificate=ssc_certificate_url,ug_marksheet=ug_marksheet_url,ug_certificate=ug_certificate_url,pg_marksheet=pg_marksheet_url,pg_certificate=pg_certificate_url,diploma_marksheet=diploma_marksheet_url,diploma_certificate=diploma_certificate_url,migration=migration_url,gap=gap_url,residence=residence_url,pan_card=pan_card_url,aadhar_card=aadhar_card_url,affidavit=affidavit_url,other_doc_one=other_doc_one_url,other_doc_two=other_doc_two_url,other_doc_three=other_doc_three_url,photo=photo_url,signature=signature_url)
 
             messages.success(request, "Successfully Uploaded document")
             return HttpResponseRedirect(reverse("student_document"))            

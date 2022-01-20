@@ -46,11 +46,12 @@ class AddStudentForm(forms.Form):
     
     
     
-    email=forms.EmailField(label="Email",max_length=50,widget=forms.EmailInput(attrs={"class":"form-control","autocomplete":"off"}))
+    email=forms.EmailField(label="Email (*must required)",max_length=50,widget=forms.EmailInput(attrs={"class":"form-control","autocomplete":"off"}))
+    prn_number=forms.CharField(label="PRN(Permanent Registration Number)",max_length=20,widget=forms.NumberInput(attrs={"class":"form-control"}))
     password=forms.CharField(label="Password",max_length=50,widget=forms.PasswordInput(attrs={"class":"form-control"}))
-    first_name=forms.CharField(label="First Name",max_length=50,widget=forms.TextInput(attrs={"class":"form-control"}))
-    last_name=forms.CharField(label="Last Name",max_length=50,widget=forms.TextInput(attrs={"class":"form-control"}))
-    username=forms.CharField(label="Username",max_length=50,widget=forms.TextInput(attrs={"class":"form-control","autocomplete":"off"}))
+    first_name=forms.CharField(label="First Name(put the name as on  the previous marksheet)",max_length=50,widget=forms.TextInput(attrs={"class":"form-control"}))
+    last_name=forms.CharField(label="Last Name(put the name as on  the previous marksheet)",max_length=50,widget=forms.TextInput(attrs={"class":"form-control"}))
+    username=forms.CharField(required = False,label="Username",max_length=50,widget=forms.TextInput(attrs={"class":"form-control","autocomplete":"off"}))
     profile_pic=forms.FileField(label="Profile Pic",max_length=50,widget=forms.FileInput(attrs={"class":"form-control"}))
 
 
@@ -82,8 +83,10 @@ class AddStudentForm(forms.Form):
     admission_choice=(
         ("Full Time","Full Time"),
         ("Part Time","Part Time"),
+        ("Distance","Distance"),
         ("Online","Online"),
-        ("Others","Others")
+        ("Diploma","Diploma"),
+        ("Certification","Certification")
     )
 
     session_choice=(
@@ -128,6 +131,7 @@ class AddStudentForm(forms.Form):
     session_year=forms.ChoiceField(label="Session Year",widget=forms.Select(attrs={"class":"form-control"}))
     session_joining_month=forms.ChoiceField(label="Session Joining Month",choices=session_choice,widget=forms.Select(attrs={"class":"form-control"}))
     mobile=forms.CharField(label="mobile",max_length=20,widget=forms.NumberInput(attrs={"class":"form-control"}))
+    alternate_mobile=forms.CharField(label="alternate mobile",max_length=20,widget=forms.NumberInput(attrs={"class":"form-control"}))
     highest_qualification=forms.ChoiceField(label="Highest qualification",choices=qualification_choice,widget=forms.Select(attrs={"class":"form-control"}))
     currency_type=forms.ChoiceField(label="Currency type",choices=currency_choice,widget=forms.Select(attrs={"class":"form-control"}))
     final_fees=forms.CharField(label="Final fees",max_length=50,widget=forms.NumberInput(attrs={"class":"form-control"}))
@@ -143,9 +147,10 @@ class EditStudentForm(forms.Form):
         self.fields['country'].choices = country_list
         self.fields['state'].choices = state_list
     email=forms.EmailField(label="Email",max_length=50,widget=forms.EmailInput(attrs={"class":"form-control"}))
-    first_name=forms.CharField(label="First Name",max_length=50,widget=forms.TextInput(attrs={"class":"form-control"}))
-    last_name=forms.CharField(label="Last Name",max_length=50,widget=forms.TextInput(attrs={"class":"form-control"}))
-    username=forms.CharField(label="Username",max_length=50,widget=forms.TextInput(attrs={"class":"form-control"}))
+    prn_number=forms.CharField(label="PRN(Permanent Registration Number)",max_length=20,widget=forms.NumberInput(attrs={"class":"form-control"}))
+    first_name=forms.CharField(label="First Name(put the name as on  the previous marksheet)",max_length=50,widget=forms.TextInput(attrs={"class":"form-control"}))
+    last_name=forms.CharField(label="Last Name(put the name as on  the previous marksheet)",max_length=50,widget=forms.TextInput(attrs={"class":"form-control"}))
+    username=forms.CharField(required = False,label="Username",max_length=50,widget=forms.TextInput(attrs={"class":"form-control"}))
     profile_pic=forms.FileField(label="Profile Pic",max_length=50,widget=forms.FileInput(attrs={"class":"form-control"}),required=False)
 
 
@@ -203,8 +208,10 @@ class EditStudentForm(forms.Form):
     admission_choice=(
         ("Full Time","Part Time"),
         ("Part Time","Part Time"),
+        ("Distance","Distance"),
         ("Online","Online"),
-        ("Others","Others")
+        ("Diploma","Diploma"),
+        ("Certification","Certification")
     )
 
     session_choice=(
@@ -248,6 +255,7 @@ class EditStudentForm(forms.Form):
     session_year=forms.ChoiceField(label="Session Year",widget=forms.Select(attrs={"class":"form-control"}))
     session_joining_month=forms.ChoiceField(label="Session Joining Month",choices=session_choice,widget=forms.Select(attrs={"class":"form-control"}))
     mobile=forms.CharField(label="mobile",max_length=50,widget=forms.NumberInput(attrs={"class":"form-control"}))
+    alternate_mobile=forms.CharField(label="alternate mobile",max_length=20,widget=forms.NumberInput(attrs={"class":"form-control"}))
     highest_qualification=forms.ChoiceField(label="Highest qualification",choices=qualification_choice,widget=forms.Select(attrs={"class":"form-control"}))
     currency_type=forms.ChoiceField(label="Currency type",choices=currency_choice,widget=forms.Select(attrs={"class":"form-control"}))
     final_fees=forms.CharField(label="Final fees",max_length=50,widget=forms.NumberInput(attrs={"class":"form-control"}))
