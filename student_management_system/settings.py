@@ -27,7 +27,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-74i60hr^5p$x52vk9fhwc_i_-(ung*oeeb49nmwp8j#$6wu&ul'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['anzasmsproject99.herokuapp.com','localhost', '127.0.0.1']
 
@@ -172,10 +172,10 @@ DEFAULT_FROM_EMAIL="Student management System <theunstoppablejha@gmail.com>"
 # }
 
 #Enable Only Making Project Live on Heroku
-# STATICFILES_STORAGE='django.contrib.staticfiles.storage.ManifestStaticFilesStorage'
-# STATICFILES_STORAGE='whitenoise.storage.CompressedManifestStaticFilesStorage'
-# import dj_database_url 
-# prod_db=dj_database_url.config(conn_max_age=500)
-# DATABASES['default'].update(prod_db)
+STATICFILES_STORAGE='django.contrib.staticfiles.storage.ManifestStaticFilesStorage'
+STATICFILES_STORAGE='whitenoise.storage.CompressedManifestStaticFilesStorage'
+import dj_database_url 
+prod_db=dj_database_url.config(conn_max_age=500)
+DATABASES['default'].update(prod_db)
 
-# django_heroku.settings(locals())
+django_heroku.settings(locals())
