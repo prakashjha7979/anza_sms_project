@@ -42,7 +42,7 @@ STATIC_ROOT=os.path.join(BASE_DIR,"staticfiles")
 
 
 
-# Application definition
+# Application definit
 
 INSTALLED_APPS = [
     'django.contrib.admin',
