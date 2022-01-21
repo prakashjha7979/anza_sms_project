@@ -172,7 +172,7 @@ DEFAULT_FROM_EMAIL="Student management System <theunstoppablejha@gmail.com>"
 # }
 
 #Enable Only Making Project Live on Heroku
-STATICFILES_STORAGE='django.contrib.staticfiles.storage.ManifestStaticFilesStorage'
+# STATICFILES_STORAGE='django.contrib.staticfiles.storage.ManifestStaticFilesStorage'
 STATICFILES_STORAGE='whitenoise.storage.CompressedManifestStaticFilesStorage'
 import dj_database_url 
 prod_db=dj_database_url.config(conn_max_age=500)
