@@ -1,1 +1,3 @@
-sms_env/
+iref_env/
+static/plugins/flot/
+staticfiles/plugins/flot/
