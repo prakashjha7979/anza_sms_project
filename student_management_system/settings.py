@@ -59,7 +59,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'student_management_app',
     # 'widget_tweaks',
-    # 'channels',
+    
 ]
 
 MIDDLEWARE = [
