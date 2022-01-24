@@ -150,8 +150,8 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
-# STATIC_URL = '/static/'
-STATIC_URL = '/staticfiles/'
+# STATIC_URL = '/staticfiles/'
+STATIC_URL = '/static/'
 AUTH_USER_MODEL="student_management_app.CustomUser"
 AUTHENTICATION_BACKENDS=['student_management_app.EmailBackEnd.EmailBackEnd']
 
@@ -182,9 +182,9 @@ DEFAULT_FROM_EMAIL="Student management System <theunstoppablejha@gmail.com>"
 
 #Enable Only Making Project Live on Heroku
 # STATICFILES_STORAGE='django.contrib.staticfiles.storage.ManifestStaticFilesStorage'
-STATICFILES_STORAGE='whitenoise.storage.CompressedManifestStaticFilesStorage'
-import dj_database_url 
-prod_db=dj_database_url.config(conn_max_age=500)
-DATABASES['default'].update(prod_db)
+# STATICFILES_STORAGE='whitenoise.storage.CompressedManifestStaticFilesStorage'
+# import dj_database_url 
+# prod_db=dj_database_url.config(conn_max_age=500)
+# DATABASES['default'].update(prod_db)
 
-django_heroku.settings(locals())
+# django_heroku.settings(locals())
