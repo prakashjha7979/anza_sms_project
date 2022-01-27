@@ -90,6 +90,7 @@ class Students(models.Model):
     communication_address=models.TextField()
     session_joining_month=models.CharField(max_length=255)
     highest_qualification=models.CharField(max_length=255)
+    work_experience=models.CharField(max_length=255)
     currency_type=models.CharField(max_length=255)
     final_fees=models.CharField(max_length=255)
     other_information=models.CharField(max_length=255)
@@ -301,7 +302,7 @@ def create_user_profile(sender,instance,created,**kwargs):
         if instance.user_type==2:
             Staffs.objects.create(admin=instance,address="")
         if instance.user_type==3:
-            Students.objects.create(admin=instance,course=Courses.objects.get(id=1),session_year=SessionYearModel.object.get(id=1),country=Country.objects.get(id=1),state=State.objects.get(id=1),permanent_address="",communication_address="",mobile="",highest_qualification="",profile_pic="",gender="",father_name="",mother_name="",date_of_birth="2020-01-01",session_joining_month="",final_fees="",other_information="",admission_type="",admission_status="",currency_type="",prn_number="",alternate_mobile="")
+            Students.objects.create(admin=instance,course=Courses.objects.get(id=1),session_year=SessionYearModel.object.get(id=1),country=Country.objects.get(id=1),state=State.objects.get(id=1),permanent_address="",communication_address="",mobile="",highest_qualification="",work_experience="",profile_pic="",gender="",father_name="",mother_name="",date_of_birth="2020-01-01",session_joining_month="",final_fees="",other_information="",admission_type="",admission_status="",currency_type="",prn_number="",alternate_mobile="")
 
 @receiver(post_save,sender=CustomUser)
 def save_user_profile(sender,instance,**kwargs):

@@ -181,6 +181,17 @@ def delete_link(request, link_id):
         messages.error(request, "Failed to Delete link")
         return HttpResponseRedirect(reverse("add_link"))
 
+def delete_notice(request, notice_id):
+    notice = Notice.objects.get(id=notice_id)
+    try:
+        # breakpoint()
+        notice.delete()
+        messages.success(request, "Notice Deleted Successfully.")
+        return HttpResponseRedirect(reverse("admin_notice"))
+    except:
+        messages.error(request, "Failed to Delete link")
+        return HttpResponseRedirect(reverse("admin_notice"))
+
 def student_doc_approve(request,document_id):
     document=StudentDocument.objects.get(id=document_id)
     document.check_marksheet=1
@@ -313,6 +324,7 @@ def add_student_save(request):
                 session_joining_month=form.cleaned_data["session_joining_month"]
                 final_fees=form.cleaned_data["final_fees"]
                 highest_qualification=form.cleaned_data["highest_qualification"]
+                work_experience=form.cleaned_data["work_experience"]
                 other_information=form.cleaned_data["other_information"]
                 course=form.cleaned_data["course"]
                 gender=form.cleaned_data["gender"]
@@ -349,6 +361,7 @@ def add_student_save(request):
                 user.students.mobile=mobile
                 user.students.final_fees=final_fees
                 user.students.highest_qualification=highest_qualification
+                user.students.work_experience=work_experience
                 user.students.other_information=other_information
                 user.students.profile_pic=profile_pic_url
                 user.save()
@@ -509,6 +522,7 @@ def edit_student(request,student_id):
     form.fields['final_fees'].initial=student.final_fees
     form.fields['other_information'].initial=student.other_information
     form.fields['highest_qualification'].initial=student.highest_qualification
+    form.fields['work_experience'].initial=student.work_experience
     return render(request,"hod_template/edit_student_template.html",{"form":form,"id":student_id,"username":student.admin.username})
 
 def edit_student_save(request):
@@ -549,6 +563,7 @@ def edit_student_save(request):
             session_joining_month=form.cleaned_data["session_joining_month"]
             final_fees=form.cleaned_data["final_fees"]
             highest_qualification=form.cleaned_data["highest_qualification"]
+            work_experience=form.cleaned_data["work_experience"]
             other_information=form.cleaned_data["other_information"]
             course=form.cleaned_data["course"]
             gender=form.cleaned_data["gender"]
@@ -590,6 +605,7 @@ def edit_student_save(request):
                 student.session_year = session_year
                 student.mobile=mobile
                 student.highest_qualification=highest_qualification
+                student.work_experience=work_experience
                 student.session_joining_month=session_joining_month
                 student.final_fees=final_fees
                 student.other_information=other_information

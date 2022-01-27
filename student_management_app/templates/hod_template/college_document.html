@@ -1,6 +1,6 @@
 {% extends 'hod_template/base_template.html' %}
 {% block page_title %}
-Admin Manage College Documents 
+Admin Manage College Documents
 {% endblock page_title %}
 {% block main_content %}
 <!-- Main content -->
@@ -30,15 +30,25 @@ Admin Manage College Documents
                 {% csrf_token %}
                 <div class="card-body">
 
+                    <!-- <div class="form-group">
+                        <label>Admission Letter</label>
+                        <p><input type="file" class="form-control pd-3px" name="admission_letter" id="file" onchange="loadFile(event)" style="display: none;"></p>
+                        <p><label for="file" style="cursor: pointer;">Upload Image here</label></p>
+                        <p><img id="output" width="100" /></p>
+                    </div> -->
+
                     <div class="form-group">
                         <label>Admission Letter</label>
                         <input type="file" class="form-control pd-3px" name="admission_letter">
+                        
+                        
                     </div>
 
                     <div class="form-group">
                         <label>Comments </label>
-                        <input type="text" class="form-control" name="admission_comment" placeholder="Enter Comments">
-                      </div>
+                        <input type="text" class="form-control" name="admission_comment"
+                            value="{{ clg_documents.admission_comment }}">
+                    </div>
                     <div class="form-group">
                         <!-- <button class="btn btn-success"><a download="{{std_documents.hsc_marksheet}}"
                                 href="{{std_documents.hsc_marksheet}}">Download</a></button>
@@ -134,10 +144,10 @@ Admin Manage College Documents
                         </style>
 
                     </div>
-                    
 
 
-                   
+
+
 
                     <div class="form-group">
                         <label>First Installment Invoice</label>
@@ -146,9 +156,9 @@ Admin Manage College Documents
 
                     <div class="form-group">
                         <label> Comment </label>
-                        <input type="text" class="form-control" name="one_comment" placeholder="Enter Comments">
+                        <input type="text" class="form-control" name="one_comment" value="{{ clg_documents.one_comment }}">
                       </div>
-                    <div class="form-group">
+                    <div class=" form-group">
                         <!-- HTML !-->
                         <button class="button-62" role="button"><a download="{{clg_documents.first_installment}}"
                                 href="{{clg_documents.first_installment}}">Download</a></button>
@@ -240,7 +250,7 @@ Admin Manage College Documents
                         </style>
 
                     </div>
-                    
+
 
                     <div class="form-group">
                         <label>Second Installment Invoice</label>
@@ -249,9 +259,9 @@ Admin Manage College Documents
 
                     <div class="form-group">
                         <label> Comment </label>
-                        <input type="text" class="form-control" name="two_comment" placeholder="Enter Comments">
+                        <input type="text" class="form-control" name="two_comment" value="{{ clg_documents.two_comment }}">
                       </div>
-                    <div class="form-group">
+                    <div class=" form-group">
                         <!-- HTML !-->
                         <button class="button-62" role="button"><a download="{{clg_documents.second_installment}}"
                                 href="{{clg_documents.second_installment}}">Download</a></button>
@@ -343,15 +353,15 @@ Admin Manage College Documents
                         </style>
 
                     </div>
-                    
+
                     <div class="form-group">
                         <label>Third Installment Invoice</label>
                         <input type="file" class="form-control" name="third_installment">
                     </div>
                     <div class="form-group">
                         <label>Comment </label>
-                        <input type="text" class="form-control" name="three_comment" placeholder="Enter Comments">
-                      </div>
+                        <input type="text" class="form-control" name="three_comment" value="{{ clg_documents.three_comment }}">
+                    </div>
                     <div class="form-group">
                         <!-- HTML !-->
                         <button class="button-62" role="button"><a download="{{clg_documents.third_installment}}"
@@ -444,7 +454,7 @@ Admin Manage College Documents
                         </style>
 
                     </div>
-                    
+
 
                     <div class="form-group">
                         <label>Fourth Installment Invoice</label>
@@ -453,8 +463,8 @@ Admin Manage College Documents
 
                     <div class="form-group">
                         <label>Comment </label>
-                        <input type="text" class="form-control" name="four_comment" placeholder="Enter Comments">
-                      </div>
+                        <input type="text" class="form-control" name="four_comment" value="{{ clg_documents.four_comment }}">
+                    </div>
                     <div class="form-group">
                         <!-- HTML !-->
                         <button class="button-62" role="button"><a download="{{clg_documents.fourth_installment}}"
@@ -547,7 +557,7 @@ Admin Manage College Documents
                         </style>
 
                     </div>
-                    
+
 
                     <div class="form-group">
                         <label>Fifth Installment Invoice</label>
@@ -555,8 +565,8 @@ Admin Manage College Documents
                     </div>
                     <div class="form-group">
                         <label>Comment </label>
-                        <input type="text" class="form-control" name="five_comment" placeholder="Enter Comments">
-                      </div>
+                        <input type="text" class="form-control" name="five_comment" value="{{ clg_documents.five_comment }}">
+                    </div>
                     <div class="form-group">
                         <!-- HTML !-->
                         <button class="button-62" role="button"><a download="{{clg_documents.fifth_installment}}"
@@ -649,7 +659,7 @@ Admin Manage College Documents
                         </style>
 
                     </div>
-                    
+
 
                     <div class="form-group">
                         <label>Sixth Installment Invoice</label>
@@ -657,8 +667,8 @@ Admin Manage College Documents
                     </div>
                     <div class="form-group">
                         <label>Comment </label>
-                        <input type="text" class="form-control" name="six_comment" placeholder="Enter Comments">
-                      </div>
+                        <input type="text" class="form-control" name="six_comment" value="{{ clg_documents.six_comment }}">
+                    </div>
                     <div class="form-group">
                         <!-- HTML !-->
                         <button class="button-62" role="button"><a download="{{clg_documents.sixth_installment}}"
@@ -751,7 +761,7 @@ Admin Manage College Documents
                         </style>
 
                     </div>
-                    
+
 
                     <div class="form-group">
                         <label>Seventh Installment Invoice</label>
@@ -759,8 +769,8 @@ Admin Manage College Documents
                     </div>
                     <div class="form-group">
                         <label>Comment </label>
-                        <input type="text" class="form-control" name="seven_comment" placeholder="Enter Comments">
-                      </div>
+                        <input type="text" class="form-control" name="seven_comment" value="{{ clg_documents.seven_comment }}">
+                    </div>
                     <div class="form-group">
                         <!-- HTML !-->
                         <button class="button-62" role="button"><a download="{{clg_documents.seventh_installment}}"
@@ -853,7 +863,7 @@ Admin Manage College Documents
                         </style>
 
                     </div>
-                    
+
 
                     <div class="form-group">
                         <label>Eighth Installment Invoice</label>
@@ -861,8 +871,8 @@ Admin Manage College Documents
                     </div>
                     <div class="form-group">
                         <label>Comment </label>
-                        <input type="text" class="form-control" name="eight_comment" placeholder="Enter Comments">
-                      </div>
+                        <input type="text" class="form-control" name="eight_comment" value="{{ clg_documents.eight_comment }}">
+                    </div>
                     <div class="form-group">
                         <!-- HTML !-->
                         <button class="button-62" role="button"><a download="{{clg_documents.eighth_installment}}"
@@ -955,17 +965,17 @@ Admin Manage College Documents
                         </style>
 
                     </div>
-                    
 
-                    
+
+
                     <div class="form-group">
                         <label>First Semester Result</label>
                         <input type="file" class="form-control" name="first_semester">
                     </div>
                     <div class="form-group">
                         <label>Comment </label>
-                        <input type="text" class="form-control" name="first_comment" placeholder="Enter Comments">
-                      </div>
+                        <input type="text" class="form-control" name="first_comment" value="{{ clg_documents.first_comment }}">
+                    </div>
                     <div class="form-group">
                         <!-- HTML !-->
                         <button class="button-62" role="button"><a download="{{clg_documents.first_semester}}"
@@ -1058,7 +1068,7 @@ Admin Manage College Documents
                         </style>
 
                     </div>
-                    
+
 
                     <div class="form-group">
                         <label>Second Semester Result</label>
@@ -1066,8 +1076,8 @@ Admin Manage College Documents
                     </div>
                     <div class="form-group">
                         <label>Comment </label>
-                        <input type="text" class="form-control" name="second_comment" placeholder="Enter Comments">
-                      </div>
+                        <input type="text" class="form-control" name="second_comment" value="{{ clg_documents.second_comment }}">
+                    </div>
                     <div class="form-group">
                         <!-- HTML !-->
                         <button class="button-62" role="button"><a download="{{clg_documents.second_semester}}"
@@ -1160,7 +1170,7 @@ Admin Manage College Documents
                         </style>
 
                     </div>
-                    
+
 
                     <div class="form-group">
                         <label>Third Semester Result</label>
@@ -1168,8 +1178,8 @@ Admin Manage College Documents
                     </div>
                     <div class="form-group">
                         <label>Comment </label>
-                        <input type="text" class="form-control" name="third_comment" placeholder="Enter Comments">
-                      </div>
+                        <input type="text" class="form-control" name="third_comment" value="{{ clg_documents.third_comment }}">
+                    </div>
                     <div class="form-group">
                         <!-- HTML !-->
                         <button class="button-62" role="button"><a download="{{clg_documents.third_semester}}"
@@ -1262,7 +1272,7 @@ Admin Manage College Documents
                         </style>
 
                     </div>
-                    
+
 
                     <div class="form-group">
                         <label>Fourth Semester Result</label>
@@ -1270,8 +1280,8 @@ Admin Manage College Documents
                     </div>
                     <div class="form-group">
                         <label>Comment </label>
-                        <input type="text" class="form-control" name="fourth_comment" placeholder="Enter Comments">
-                      </div>
+                        <input type="text" class="form-control" name="fourth_comment" value="{{ clg_documents.fourth_comment }}">
+                    </div>
                     <div class="form-group">
                         <!-- HTML !-->
                         <button class="button-62" role="button"><a download="{{clg_documents.fourth_semester}}"
@@ -1364,7 +1374,7 @@ Admin Manage College Documents
                         </style>
 
                     </div>
-                    
+
 
                     <div class="form-group">
                         <label>Fifth Semester Result</label>
@@ -1372,8 +1382,8 @@ Admin Manage College Documents
                     </div>
                     <div class="form-group">
                         <label>Comment </label>
-                        <input type="text" class="form-control" name="fifth_comment" placeholder="Enter Comments">
-                      </div>
+                        <input type="text" class="form-control" name="fifth_comment" value="{{ clg_documents.fifth_comment }}">
+                    </div>
                     <div class="form-group">
                         <!-- HTML !-->
                         <button class="button-62" role="button"><a download="{{clg_documents.fifth_semester}}"
@@ -1466,7 +1476,7 @@ Admin Manage College Documents
                         </style>
 
                     </div>
-                    
+
 
                     <div class="form-group">
                         <label>Six Semester Result</label>
@@ -1474,8 +1484,8 @@ Admin Manage College Documents
                     </div>
                     <div class="form-group">
                         <label>Comment </label>
-                        <input type="text" class="form-control" name="sixth_comment" placeholder="Enter Comments">
-                      </div>
+                        <input type="text" class="form-control" name="sixth_comment" value="{{ clg_documents.sixth_comment }}">
+                    </div>
                     <div class="form-group">
                         <!-- HTML !-->
                         <button class="button-62" role="button"><a download="{{clg_documents.sixth_semester}}"
@@ -1568,15 +1578,15 @@ Admin Manage College Documents
                         </style>
 
                     </div>
-                    
+
                     <div class="form-group">
                         <label>Seven Semester Result</label>
                         <input type="file" class="form-control" name="seventh_semester">
                     </div>
                     <div class="form-group">
                         <label>Comment </label>
-                        <input type="text" class="form-control" name="seventh_comment" placeholder="Enter Comments">
-                      </div>
+                        <input type="text" class="form-control" name="seventh_comment" value="{{ clg_documents.seventh_comment }}">
+                    </div>
                     <div class="form-group">
                         <!-- HTML !-->
                         <button class="button-62" role="button"><a download="{{clg_documents.seventh_semester}}"
@@ -1669,7 +1679,7 @@ Admin Manage College Documents
                         </style>
 
                     </div>
-                    
+
 
                     <div class="form-group">
                         <label>Eight Semester Result</label>
@@ -1677,8 +1687,8 @@ Admin Manage College Documents
                     </div>
                     <div class="form-group">
                         <label>Comment </label>
-                        <input type="text" class="form-control" name="eight_comment" placeholder="Enter Comments">
-                      </div>
+                        <input type="text" class="form-control" name="eight_comment" value="{{ clg_documents.eight_comment }}">
+                    </div>
                     <div class="form-group">
                         <!-- HTML !-->
                         <button class="button-62" role="button"><a download="{{clg_documents.eighth_semester}}"
@@ -1771,15 +1781,15 @@ Admin Manage College Documents
                         </style>
 
                     </div>
-                    
+
 
                     <div class="form-group">
                         <label>Other Document (1)</label>
                         <input type="file" class="form-control" name="other_documents">
                         <div class="form-group">
                             <label>Comments </label>
-                            <input type="text" class="form-control" name="other_comment" placeholder="Enter Comments">
-                          </div>
+                            <input type="text" class="form-control" name="other_comment" value="{{ clg_documents.other_comment }}">
+                        </div>
                     </div>
                     <div class="form-group">
                         <!-- HTML !-->
@@ -1879,8 +1889,9 @@ Admin Manage College Documents
                         <input type="file" class="form-control" name="other_documents_one">
                         <div class="form-group">
                             <label>Comments </label>
-                            <input type="text" class="form-control" name="other_comment_one" placeholder="Enter Comments">
-                          </div>
+                            <input type="text" class="form-control" name="other_comment_one"
+                            value="{{ clg_documents.other_comment_one }}">
+                        </div>
                     </div>
                     <div class="form-group">
                         <!-- HTML !-->
@@ -1980,8 +1991,9 @@ Admin Manage College Documents
                         <input type="file" class="form-control" name="other_documents_two">
                         <div class="form-group">
                             <label>Comments </label>
-                            <input type="text" class="form-control" name="other_comment_two" placeholder="Enter Comments">
-                          </div>
+                            <input type="text" class="form-control" name="other_comment_two"
+                            value="{{ clg_documents.other_comment_two }}">
+                        </div>
                     </div>
                     <div class="form-group">
                         <!-- HTML !-->
@@ -2075,8 +2087,8 @@ Admin Manage College Documents
                         </style>
 
                     </div>
-                    
-                    
+
+
 
                     <!-- <div class="form-group">
                         {% if messages %}
@@ -2108,3 +2120,12 @@ Admin Manage College Documents
 </section>
 <!-- /.content -->
 {% endblock main_content %}
+
+{% block custom_js %}
+<script>
+    // var loadFile = function(event) {
+    //     var admission_letter = document.getElementById('output');
+    //     admission_letter.src = URL.createObjectURL(event.target.files[0]);
+    // };
+    </script>
+{% endblock custom_js %}

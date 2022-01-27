@@ -50,7 +50,11 @@ urlpatterns = [
     path('add_student_save', HodViews.add_student_save,name="add_student_save"),
 
     path('ajax/load-states/', HodViews.load_states, name='ajax_load_states'), # AJAX
-    path('ajax/change-states/', views.change_states, name='ajax_change_states'), # AJAX
+
+    path('ajax/states_change/', views.change_states, name='ajax_change_states'), # AJAX
+
+    # student section
+    path('ajax/change-states/', StudentViews.states_change, name='ajax_states_change'), # AJAX
 
     path('add_subject', HodViews.add_subject,name="add_subject"),
     path('admin_notice', HodViews.admin_notice,name="admin_notice"),
@@ -86,6 +90,7 @@ urlpatterns = [
     path('cls_link_save', HodViews.cls_link_save,name="cls_link_save"),
 
     path('delete_link/<link_id>/', HodViews.delete_link, name="delete_link"),
+    path('delete_notice/<notice_id>/', HodViews.delete_notice, name="delete_notice"),
     path('student_doc_approve/<int:document_id>/', HodViews.student_doc_approve, name="student_doc_approve"),
     path('student_doc_disapprove/<int:document_id>/', HodViews.student_doc_disapprove,name="student_doc_disapprove"),
     

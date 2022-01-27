@@ -1,3 +1,4 @@
+from faulthandler import disable
 from django import forms
 from django.forms import ModelForm
 from django.forms import ChoiceField
@@ -113,6 +114,14 @@ class AddStudentForm(forms.Form):
         ("Others","Others")
     )
 
+    work_choice=(
+        ("Fresher","Fresher"),
+        ("1-2","1-2"),
+        ("3-6","3-6"),
+        ("6-10","6-10"),
+        ("10+","10+"),
+    )
+
     course=forms.ChoiceField(label="Course",widget=forms.Select(attrs={"class":"form-control"}))
     # course = forms.ChoiceField()
     gender=forms.ChoiceField(label="Gender",choices=gender_choice,widget=forms.Select(attrs={"class":"form-control"}))
@@ -133,6 +142,7 @@ class AddStudentForm(forms.Form):
     mobile=forms.CharField(label="mobile",max_length=20,widget=forms.NumberInput(attrs={"class":"form-control"}))
     alternate_mobile=forms.CharField(label="alternate mobile",max_length=20,widget=forms.NumberInput(attrs={"class":"form-control"}))
     highest_qualification=forms.ChoiceField(label="Highest qualification",choices=qualification_choice,widget=forms.Select(attrs={"class":"form-control"}))
+    work_experience=forms.ChoiceField(label="Total work experience",choices=work_choice,widget=forms.Select(attrs={"class":"form-control"}))
     currency_type=forms.ChoiceField(label="Currency type",choices=currency_choice,widget=forms.Select(attrs={"class":"form-control"}))
     final_fees=forms.CharField(label="Final fees",max_length=50,widget=forms.NumberInput(attrs={"class":"form-control"}))
     other_information=forms.CharField(label="Other information",max_length=255,widget=forms.TextInput(attrs={"class":"form-control"}))
@@ -238,6 +248,14 @@ class EditStudentForm(forms.Form):
         ("Others","Others")
     )
 
+    work_choice=(
+        ("Fresher","Fresher"),
+        ("1-2","1-2"),
+        ("3-6","3-6"),
+        ("6-10","6-10"),
+        ("10+","10+"),
+    )
+
     course=forms.ChoiceField(label="Course",widget=forms.Select(attrs={"class":"form-control"}))
     gender=forms.ChoiceField(label="Gender",choices=gender_choice,widget=forms.Select(attrs={"class":"form-control"}))
     
@@ -257,9 +275,139 @@ class EditStudentForm(forms.Form):
     mobile=forms.CharField(label="mobile",max_length=50,widget=forms.NumberInput(attrs={"class":"form-control"}))
     alternate_mobile=forms.CharField(label="alternate mobile",max_length=20,widget=forms.NumberInput(attrs={"class":"form-control"}))
     highest_qualification=forms.ChoiceField(label="Highest qualification",choices=qualification_choice,widget=forms.Select(attrs={"class":"form-control"}))
+    work_experience=forms.ChoiceField(label="Total work experience",choices=work_choice,widget=forms.Select(attrs={"class":"form-control"}))
     currency_type=forms.ChoiceField(label="Currency type",choices=currency_choice,widget=forms.Select(attrs={"class":"form-control"}))
     final_fees=forms.CharField(label="Final fees",max_length=50,widget=forms.NumberInput(attrs={"class":"form-control"}))
     other_information=forms.CharField(label="Other information",max_length=255,widget=forms.TextInput(attrs={"class":"form-control"}))
+
+
+class EditStudentProfile(forms.Form):
+    # breakpoint()
+    def __init__(self,list_courses,session_list,country_list,state_list,*args,**kwargs):
+        super(EditStudentProfile,self).__init__(*args,**kwargs)
+        self.fields['course'].choices = list_courses
+        self.fields['session_year'].choices = session_list
+        self.fields['country'].choices = country_list
+        self.fields['state'].choices = state_list
+        # self.fields['email']['readonly'] = True
+    email=forms.EmailField(label="Email",max_length=50,widget=forms.EmailInput(attrs={"class":"form-control",'readonly': True}))
+    prn_number=forms.CharField(label="PRN(Permanent Registration Number)",max_length=20,widget=forms.NumberInput(attrs={"class":"form-control"}))
+    first_name=forms.CharField(label="First Name(put the name as on  the previous marksheet)",max_length=50,widget=forms.TextInput(attrs={"class":"form-control"}))
+    last_name=forms.CharField(label="Last Name(put the name as on  the previous marksheet)",max_length=50,widget=forms.TextInput(attrs={"class":"form-control"}))
+    username=forms.CharField(required = False,label="Username",max_length=50,widget=forms.TextInput(attrs={"class":"form-control"}))
+    profile_pic=forms.FileField(label="Profile Pic",max_length=50,widget=forms.FileInput(attrs={"class":"form-control"}),required=False)
+
+
+    # course_list=[]
+    # try:
+    #     courses = Courses.objects.all()
+    #     for course in courses:
+    #         small_course=(course.id,course.course_name)
+    #         course_list.append(small_course)
+    # except:
+    #     course_list=[]
+
+    # session_list = []
+    # try:
+    #     sessions = SessionYearModel.object.all()
+
+    #     for ses in sessions:
+    #         small_ses = (ses.id, str(ses.session_start_year)+"   TO  "+str(ses.session_end_year))
+    #         session_list.append(small_ses)
+    # except:
+    #     session_list = []
+
+    # countries=[]
+    # try:
+    #     country_list = Country.objects.all()
+
+    #     for country in country_list:
+    #         country_name=(country.id,country.name)
+    #         countries.append(country_name)
+            
+    # except:
+    #     countries=[]
+
+    
+
+    gender_choice=(
+        ("Male","Male"),
+        ("Female","Female"),
+        ("Other","Other")
+    )
+
+    currency_choice=(
+        ("INR","INR"),
+        ("USD","USD"),
+       
+    )
+
+    admission_choice=(
+        ("Full Time","Part Time"),
+        ("Part Time","Part Time"),
+        ("Distance","Distance"),
+        ("Online","Online"),
+        ("Diploma","Diploma"),
+        ("Certification","Certification")
+    )
+
+    session_choice=(
+        ("Jan","Jan"),
+        ("Feb","Feb"),
+        ("Mar","Mar"),
+        ("Apr","Apr"),
+        ("May","May"),
+        ("Jun","Jun"),
+        ("Jul","Jul"),
+        ("Aug","Aug"),
+        ("Sep","Sep"),
+        ("Oct","Oct"),
+        ("Nov","Nov"),
+        ("Dec","Dec")
+    )
+
+    qualification_choice=(
+        ("10","10"),
+        ("10+2","10+2"),
+        ("Diploma","Diploma"),
+        ("Graduation","Graduation"),
+        ("Post Graduation","Post Graduation"),
+        ("Others","Others")
+    )
+
+    work_choice=(
+        ("Fresher","Fresher"),
+        ("1-2","1-2"),
+        ("3-6","3-6"),
+        ("6-10","6-10"),
+        ("10+","10+"),
+    )
+
+    course=forms.ChoiceField(label="Course",widget=forms.Select(attrs={"class":"form-control"}))
+    gender=forms.ChoiceField(label="Gender",choices=gender_choice,widget=forms.Select(attrs={"class":"form-control"}))
+    
+    father_name=forms.CharField(label="Father name",max_length=50,widget=forms.TextInput(attrs={"class":"form-control"}))
+    mother_name=forms.CharField(label="Mother name",max_length=50,widget=forms.TextInput(attrs={"class":"form-control"}))
+    date_of_birth=forms.DateField(label="date_of_birth",widget=DateInput(attrs={"class":"form-control"}))
+    admission_type=forms.ChoiceField(label="Admission type",choices=admission_choice,widget=forms.Select(attrs={"class":"form-control"}))
+    admission_status=forms.CharField(label="admission status",max_length=50,widget=forms.TextInput(attrs={"class":"form-control"}))
+
+    country=forms.ChoiceField(label="Country",widget=forms.Select(attrs={"class":"form-control"}))
+    state=forms.ChoiceField(label="State",widget=forms.Select(attrs={"class":"form-control"}))
+
+    permanent_address=forms.CharField(label="permanent address",max_length=50,widget=forms.TextInput(attrs={"class":"form-control"}))
+    communication_address=forms.CharField(label="communication address",max_length=50,widget=forms.TextInput(attrs={"class":"form-control"}))
+    session_year=forms.ChoiceField(label="Session Year",widget=forms.Select(attrs={"class":"form-control"}))
+    session_joining_month=forms.ChoiceField(label="Session Joining Month",choices=session_choice,widget=forms.Select(attrs={"class":"form-control"}))
+    mobile=forms.CharField(label="mobile",max_length=50,widget=forms.NumberInput(attrs={"class":"form-control"}))
+    alternate_mobile=forms.CharField(label="alternate mobile",max_length=20,widget=forms.NumberInput(attrs={"class":"form-control"}))
+    highest_qualification=forms.ChoiceField(label="Highest qualification",choices=qualification_choice,widget=forms.Select(attrs={"class":"form-control"}))
+    work_experience=forms.ChoiceField(label="Total work experience",choices=work_choice,widget=forms.Select(attrs={"class":"form-control"}))
+    currency_type=forms.ChoiceField(label="Currency type",choices=currency_choice,widget=forms.Select(attrs={"class":"form-control"}))
+    final_fees=forms.CharField(label="Final fees",max_length=50,widget=forms.NumberInput(attrs={"class":"form-control"}))
+    other_information=forms.CharField(label="Other information",max_length=255,widget=forms.TextInput(attrs={"class":"form-control"}))
+    # password=forms.CharField(required = False,label="Change Password",max_length=255,widget=forms.PasswordInput(attrs={"class":"form-control"}))
+
 
 class AddCourseForm(forms.Form):
     course_name=forms.CharField(label="Course",max_length=50,widget=forms.TextInput(attrs={"class":"form-control","autocomplete":"off"}))

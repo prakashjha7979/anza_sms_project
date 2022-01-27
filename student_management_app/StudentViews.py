@@ -5,9 +5,9 @@ from django.http.response import HttpResponseRedirect, HttpResponse
 from django.shortcuts import render
 from django.urls.base import reverse
 import student_management_app
-from student_management_app.forms import addNoticeform
+from student_management_app.forms import EditStudentForm, EditStudentProfile, addNoticeform
 
-from student_management_app.models import Attendance, AttendanceReport, CollegeDocument, Courses, CustomUser, FeedBackStudent, LeaveReportStudent, Links, Notice, SessionYearModel, StudentDocument, Students, Subjects
+from student_management_app.models import Attendance, AttendanceReport, CollegeDocument, Country, Courses, CustomUser, FeedBackStudent, LeaveReportStudent, Links, Notice, SessionYearModel, State, StudentDocument, Students, Subjects
 
 
 def student_home(request):
@@ -64,44 +64,149 @@ def student_view_attendance_post(request):
 def student_profile(request):
     user=CustomUser.objects.get(id=request.user.id)
     student=Students.objects.get(admin=user)
-    return render(request,"student_template/student_profile.html",{"user":user,"student":student})
+    form=EditStudentProfile(get_course_list,get_session_list,get_country_list,get_state_list)
+    form.fields['email'].initial=student.admin.email
+    form.fields['first_name'].initial=student.admin.first_name
+    form.fields['last_name'].initial=student.admin.last_name
+    form.fields['username'].initial=student.admin.username
+    # form.fields['password'].initial=student.admin.password
+    form.fields['profile_pic'].initial=student.profile_pic
+    form.fields['course'].initial=student.course.id
+    form.fields['gender'].initial=student.gender
+    form.fields['prn_number'].initial=student.prn_number
+    form.fields['currency_type'].initial=student.currency_type
+    form.fields['father_name'].initial=student.father_name
+    form.fields['mother_name'].initial=student.mother_name
+    form.fields['alternate_mobile'].initial=student.alternate_mobile
+    form.fields['date_of_birth'].initial=student.date_of_birth
+    form.fields['admission_type'].initial=student.admission_type
+    form.fields['admission_status'].initial=student.admission_type
+    form.fields['permanent_address'].initial=student.permanent_address
+    form.fields['communication_address'].initial=student.communication_address
+
+    form.fields['country'].initial=student.country.id
+    form.fields['state'].initial=student.state.id
+    form.fields['mobile'].initial=student.mobile
+    form.fields['session_year'].initial=student.session_year.id
+    form.fields['session_joining_month'].initial=student.session_joining_month
+    form.fields['final_fees'].initial=student.final_fees
+    form.fields['other_information'].initial=student.other_information
+    form.fields['highest_qualification'].initial=student.highest_qualification
+    form.fields['work_experience'].initial=student.work_experience
+    return render(request,"student_template/student_profile.html",{"user":user,"form":form,"student":student})
+
+def states_change(request):
+    # breakpoint()
+    country_id = request.GET.get('country_id')
+    states = State.objects.filter(country=country_id)
+    return render(request, 'edit_state_dropdown.html', {'states': states})
 
 def student_profile_save(request):
-    if request.method!="POST":
+    # breakpoint()
+    if request.method !="POST":
         return HttpResponseRedirect(reverse("student_profile"))
     else:
-        first_name=request.POST.get("first_name")
-        last_name=request.POST.get("last_name")
-        password=request.POST.get("password")
-        permanent_address=request.POST.get("permanent_address")
-        communication_address=request.POST.get("communication_address")
-        profile_pic=request.POST.get("profile_pic")
-        if request.FILES.get('profile_pic',False):
+        # student_id=request.session.get("student_id")
+        # if student_id==None:
+        #     return HttpResponseRedirect("manage_student")
+
+        # breakpoint()
+        form=EditStudentProfile(get_course_list,get_session_list,get_country_list,get_state_list,request.POST,request.FILES)
+        
+        
+        
+        if form.is_valid():
+            # breakpoint()
+
+            first_name = form.cleaned_data["first_name"]
+            last_name = form.cleaned_data["last_name"]
+            username = form.cleaned_data["username"]
+            # email = form.cleaned_data["email"]
+            # password = form.cleaned_data["password"]
+            prn_number = form.cleaned_data["prn_number"]
+            father_name=form.cleaned_data["father_name"]
+            mother_name=form.cleaned_data["mother_name"]
+            alternate_mobile=form.cleaned_data["alternate_mobile"]
+            date_of_birth=form.cleaned_data["date_of_birth"]
+            admission_type=form.cleaned_data["admission_type"]
+            admission_status=form.cleaned_data["admission_status"]
+            permanent_address=form.cleaned_data["permanent_address"]
+            communication_address=form.cleaned_data["communication_address"]
+
+            country=form.cleaned_data["country"]
+            state=form.cleaned_data["state"]
+            mobile=form.cleaned_data["mobile"] 
+            session_year=form.cleaned_data["session_year"]
+            session_joining_month=form.cleaned_data["session_joining_month"]
+            final_fees=form.cleaned_data["final_fees"]
+            highest_qualification=form.cleaned_data["highest_qualification"]
+            work_experience=form.cleaned_data["work_experience"]
+            other_information=form.cleaned_data["other_information"]
+            course=form.cleaned_data["course"]
+            gender=form.cleaned_data["gender"]
+            currency_type=form.cleaned_data["currency_type"]
+
+            if request.FILES.get('profile_pic',False):
                 profile_pic=request.FILES['profile_pic']
                 fs=FileSystemStorage()
                 filename=fs.save(profile_pic.name,profile_pic)
                 profile_pic_url=fs.url(filename)
-        else:
-            profile_pic_url=None
-        try:
-            customuser=CustomUser.objects.get(id=request.user.id)
-            customuser.first_name=first_name
-            customuser.last_name=last_name
-            if password!=None and password!="":
-                customuser.set_password(password)
-            customuser.save()
+            else:
+                profile_pic_url=None
 
-            student=Students.objects.get(admin=customuser)
-            student.permanent_address=permanent_address 
-            student.communication_address=communication_address
-            if profile_pic_url!=None:
+            try:
+                # breakpoint()
+                customuser=CustomUser.objects.get(id=request.user.id)
+                customuser.first_name=first_name
+                customuser.last_name=last_name
+                customuser.username=username
+                # customuser.email=email
+                # customuser.password=password
+                # if password!=None and password!="":
+                #     customuser.set_password(password)
+                customuser.save()
+
+                student=Students.objects.get(admin=customuser)
+                student.father_name=father_name
+                student.mother_name=mother_name
+                student.alternate_mobile=alternate_mobile
+                student.prn_number=prn_number
+                student.date_of_birth=date_of_birth
+                student.admission_type=admission_type
+                student.admission_status=admission_status
+                student.permanent_address=permanent_address
+                student.communication_address=communication_address
+
+                country = Country.objects.get(id=country)
+                student.country=country
+                state = State.objects.get(id=state)
+                student.state=state
+                session_year = SessionYearModel.object.get(id=session_year)
+                student.session_year = session_year
+                student.mobile=mobile
+                student.highest_qualification=highest_qualification
+                student.work_experience=work_experience
+                student.session_joining_month=session_joining_month
+                student.final_fees=final_fees
+                student.other_information=other_information
+                course=Courses.objects.get(id=course)
+                student.course=course
+                student.gender=gender
+                student.currency_type=currency_type
+                if profile_pic_url!=None:
                     student.profile_pic=profile_pic_url
-            student.save()
-            messages.success(request, "Successfully Updated Profile")
-            return HttpResponseRedirect(reverse("student_profile"))
-        except:
-            messages.error(request, "Failed to Update Profile")
-            return HttpResponseRedirect(reverse("student_profile"))
+                student.save()
+                
+                messages.success(request,"Successfully Edited Student Record")
+                return HttpResponseRedirect(reverse("student_profile"))
+            except:
+                messages.error(request,"Failed to Edit Student Record")
+                return HttpResponseRedirect(reverse("student_profile"))
+        # else:
+        #     form=EditStudentProfile(get_course_list,get_session_list,get_country_list,get_state_list,request.POST,request.FILES)
+        #     student=Students.objects.get(admin=user)
+        #     return render(request,"hod_template/edit_student_template.html",{"form":form,"id":user,"username":student.admin.username})
+
 
 def student_apply_leave(request):
     staff_obj = Students.objects.get(admin=request.user.id)
@@ -579,3 +684,56 @@ def student_document_save(request):
         except:
             messages.error(request, "Failed to Uploaded document")
             return HttpResponseRedirect(reverse("student_document"))
+
+
+def get_course_list():
+    courses = []
+    try:
+        list_courses = Courses.objects.all()
+        for course in list_courses:
+            small_course=(course.id,course.course_name)
+            courses.append(small_course)
+
+    except:
+        courses = []
+
+    return courses
+
+def get_session_list():
+    sessions = []
+    try:
+        session_list = SessionYearModel.object.all()
+
+        for ses in session_list:
+            small_ses = (ses.id, str(ses.session_start_year)+"   TO  "+str(ses.session_end_year))
+            sessions.append(small_ses)
+    except:
+        sessions=[]
+
+    return sessions
+
+def get_country_list():
+    countries = []
+    try:
+        list_country = Country.objects.all()
+        for country in list_country:
+            all_country=(country.id,country.name)
+            countries.append(all_country)
+
+    except:
+        countries = []
+
+    return countries
+
+def get_state_list():
+    states = []
+    try:
+        list_states = State.objects.all()
+        for state in list_states:
+            all_states=(state.id,state.name)
+            states.append(all_states)
+
+    except:
+        states = []
+
+    return states
